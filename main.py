@@ -147,21 +147,21 @@ while True:
                     while True:
                         menu(username,role)
                         if role == 'admin':
-                            pilihan = int(input('Pilih menu: '))
+                            pilihan = input('Pilih menu: ')
                             match pilihan: 
-                                case 1:
+                                case '1':
                                     Clear_terminal()
                                     print("Feedback")
                                     input('Tekan enter untuk melanjutkan!')
-                                case 2:
+                                case '2':
                                     Clear_terminal()
                                     print('E-Commerce')
                                     input('Tekan enter untuk melanjutkan!')
-                                case 3:
+                                case '3':
                                     Clear_terminal()
                                     print('Inventaris Admin')     
                                     input('Tekan enter untuk melanjutkan!')                           
-                                case 4:
+                                case '4':
                                     Clear_terminal()
                                     print('Log Out')     
                                     input('Tekan enter untuk melanjutkan!')
@@ -171,17 +171,17 @@ while True:
                                     print('Harus angka 1-4')
                                     input('Tekan enter untuk melanjutkan!')
                         elif role == 'user':
-                            pilihan = int(input('Pilih menu: '))
+                            pilihan = input('Pilih menu: ')
                             match pilihan:
-                                case 1:
+                                case '1':
                                     Clear_terminal()
                                     print('belanja') 
                                     input('Tekan enter untuk melanjutkan!')
-                                case 2:
+                                case '2':
                                     Clear_terminal()
                                     print('keranjang') 
                                     input('Tekan enter untuk melanjutkan!')
-                                case 3:
+                                case '3':
                                     Clear_terminal()
                                     print('log out') 
                                     input('Tekan enter untuk melanjutkan!')
@@ -191,17 +191,17 @@ while True:
                                     print('Harus angka 1-3')
                                     input('Tekan enter untuk melanjutkan!')
                         else: 
-                            pilihan = int(input('Pilih menu: '))
+                            pilihan = input('Pilih menu: ')
                             match pilihan:
-                                case 1:
+                                case '1':
                                     Clear_terminal()
-                                    print('Request Barang') 
+                                    print(list_barangS()) 
                                     input('Tekan enter untuk melanjutkan!')
-                                case 2:
+                                case '2':
                                     Clear_terminal()
                                     print('Inventaris') 
                                     input('Tekan enter untuk melanjutkan!')
-                                case 3:
+                                case '3':
                                     Clear_terminal()
                                     print('log out') 
                                     input('Tekan enter untuk melanjutkan!')
