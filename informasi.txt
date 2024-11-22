@@ -1,0 +1,12 @@
+(rancangan sistem) daftar kebutuhan sistem disusun secara rasional dan detail (10%)
+(rancangan struktur data) daftar kebutuhan sistem disusun secara rasional dan detail (10%)
+(rancangan menu nafigasi/menu) daftar kebutuhan sistem disusun secara rasional dan detail (5%)
+
+- jumlah fitur lebih dari 3 dan dibahas dengan tuntas (25%)
+- penggunaan fungsi untuk memproses data (5%) (lebih dari 3)
+- penggunaan looping (5%) (lebih dari 3)
+- penggunaan if bertingkat atau bersarang (5%) (kalau bisa digunakan keduannya) (lebih dari 3)
+- jenis data dikelola dalam file (5%) (lebih dari tiga)
+
+
+
