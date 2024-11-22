@@ -1,0 +1,48 @@
+Menu Utama:
+Tambah Transaksi
+Sub-menu:
+Tambah Pemasukan
+Tambah Pengeluaran
+Laporan Keuangan
+Sub-menu:
+Lihat Laporan Bulanan
+Lihat Laporan Tahunan
+Grafik Keuangan
+Hutang dan Piutang
+Sub-menu:
+Lihat Daftar Hutang
+Lihat Daftar Piutang
+Pengingat Pembayaran
+Sub-menu:
+Lihat Pengingat
+Tambah Pengingat
+Pengaturan
+Sub-menu:
+Edit Profil Usaha
+Keluar
+
+
++-------------------------------------+-------------------------------------+-------------------------------------+-------------------------------------+
+|            Menu/Sub-menu            |    Anggota 1 (Transaksi & Laporan)  |   Anggota 2 (Hutang & Piutang)     | Anggota 3 (Pengingat & Pengaturan)  |
++-------------------------------------+-------------------------------------+-------------------------------------+-------------------------------------+
+| Menu Utama: Tambah Transaksi        | - Menambah transaksi pemasukan      | -                                   | -                                   |
+| Tambah Pemasukan                    | - Fungsi untuk menambah pemasukan   | -                                   | -                                   |
+| Tambah Pengeluaran                  | - Fungsi untuk menambah pengeluaran | -                                   | -                                   |
++-------------------------------------+-------------------------------------+-------------------------------------+-------------------------------------+
+| Menu Utama: Laporan Keuangan        | - Menyusun laporan bulanan/tahunan  | -                                   | -                                   |
+| Lihat Laporan Bulanan               | - Fungsi untuk menampilkan laporan bulanan | -                               | -                                   |
+| Lihat Laporan Tahunan               | - Fungsi untuk menampilkan laporan tahunan | -                               | -                                   |
+| Grafik Keuangan                     | - Fungsi untuk membuat grafik       | -                                   | -                                   |
++-------------------------------------+-------------------------------------+-------------------------------------+-------------------------------------+
+| Menu Utama: Hutang dan Piutang      | -                                   | - Menambah, mengedit, menghapus hutang/piutang | -                            |
+| Lihat Daftar Hutang                 | -                                   | - Menampilkan daftar hutang        | -                                   |
+| Lihat Daftar Piutang                | -                                   | - Menampilkan daftar piutang       | -                                   |
++-------------------------------------+-------------------------------------+-------------------------------------+-------------------------------------+
+| Menu Utama: Pengingat Pembayaran    | -                                   | -                                   | - Menambahkan dan menampilkan pengingat pembayaran |
+| Lihat Pengingat                     | -                                   | -                                   | - Menampilkan pengingat pembayaran |
+| Tambah Pengingat                    | -                                   | -                                   | - Menambah pengingat pembayaran    |
++-------------------------------------+-------------------------------------+-------------------------------------+-------------------------------------+
+| Menu Utama: Pengaturan              | -                                   | -                                   | - Mengelola pengaturan dan profil usaha |
+| Edit Profil Usaha                   | -                                   | -                                   | - Mengedit profil usaha            |
+| Keluar                              | -                                   | -                                   | - Logout dari aplikasi             |
++-------------------------------------+-------------------------------------+-------------------------------------+-------------------------------------+

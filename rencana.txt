@@ -1,0 +1,1 @@
+pake metode Plugin-Based Architecture (jadi setiap fitur dipisah denan folder plugins)
