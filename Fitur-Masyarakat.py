@@ -5,10 +5,11 @@ for index, provinsi in enumerate(list, start= 1):
 while True:
     try:
         daerah = int(input('pilih daerah anda: '))
-        daerah -= 1
-        if 1 <= daerah:
-            print("YA")
+        if 1 <= daerah <= index:
+            data_user = list[daerah-1]
+            print(f"Daerahmu adalah {list[daerah-1]}")
+            break
         else:
-            print("ya")
+            print(f"Nomor yang tersedia adalah 1 - {index}")
     except ValueError:
-        print("anj")
+        print("Hanya menerima input nomor urut dari daerahmu")
