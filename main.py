@@ -34,7 +34,7 @@ def registrasi():
             while True:
                 try:
                     daerah = int(input('masukkan angka: ')) - 1
-                    if  0 <= daerah <= len(list):
+                    if  0 <= daerah < len(list):
                         data = list[daerah]
                         database = pd.read_csv('./database.csv')
                         if '@gmail.com' not in email: return 'email tidak falid!'
