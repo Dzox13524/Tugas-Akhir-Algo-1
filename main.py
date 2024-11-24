@@ -5,40 +5,78 @@ import subprocess
 def Clear_terminal():
     if os.name == 'nt':
         os.system('cls')
-    else:  
+    else:
         subprocess.call('clear')
 
-text_login = """
-=====================================================
+def error(messages):
+    atas = """╔════════════════════!!! ERROR DETECTED !!!════════════════════╗
+║                                                              ║"""
+    tengah = ''
+    bawah = """║                                                              ║
+╠──────────────────────────────────────────────────────────────╣
+║   Press enter to continue.                                   ║
+╚══════════════════════════════════════════════════════════════╝
+"""
+    data = messages.split()
+    hasil = []
+    result = '║ ⚠ ERROR: '
+    index = 0
 
-:::        ::::::::   :::::::: ::::::::::: ::::    :::
-:+:       :+:    :+: :+:    :+:    :+:     :+:+:   :+:
-+:+       +:+    +:+ +:+           +:+     :+:+:+  +:+
-+#+       +#+    +:+ :#:           +#+     +#+ +:+ +#+
-+#+       +#+    +#+ +#+   +#+#    +#+     +#+  +#+#+#
-#+#       #+#    #+# #+#    #+#    #+#     #+#   #+#+#
-########## ########   ######## ########### ###    ####
-====================================================="""
+    for i in data:
+        if len(result) + len(i) + 1 <= 63:
+            result += i + " "
+            index += 1
+        else:
+            result += ' ' * (63 - len(result)) + '║'
+            hasil.append(result)
+            result = '║ '
+            result += i + " "
+
+    if result.strip() != '║':
+        result += ' ' * (63 - len(result)) + '║'
+        hasil.append(result)
+
+    for i in hasil:
+        tengah += f"\n{i.strip()}"
+    
+    Clear_terminal()
+    return f'{atas}{tengah}\n{bawah}'
+     
 def registrasi():
+    Clear_terminal()
     while True:
-        nama = input('Masukkan Nama:')
-        email = input('Masukkan Email: ')
-        password = input('Masukkan Password: ')
-        password2 = input('Masukkan Password Kembali: ') 
+        print('✦ ═══════════════════════【 Regitrasi Form 】═══════════════════════ ✦\n')
+        nama = input('⊳ Masukkan Nama        : ').capitalize()
+        email = input('⊳ Masukkan Email       : ')
+        password = input('⊳ Masukkan Password    : ')
+        password2 = input('⊳ Konfirmasi Password  : ') 
         if password == password2:
-            list = ['Nanggroe Aceh Darussalam', 'Sumatera Utara', 'Sumatera Selatan', 'Sumatera Barat', 'Bengkulu', 'Riau', 'Kepulauan Riau', 'Jambi', 'Lampung', 'Bangka Belitung', 'Kalimantan Barat', 'Kalimantan Timur', 'Kalimantan Selatan', 'Kalimantan Tengah', 'Kalimantan Utara', 'Banten', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'Daerah Istimewa Yogyakarta', 'Jawa Timur', 'Bali', 'Nusa Tenggara Timur', 'Nusa Tenggara Barat', 'Gorontalo', 'Sulawesi Barat', 'Sulawesi Tengah', 'Sulawesi Utara', 'Sulawesi Tenggara', 'Sulawesi Selatan', 'Maluku Utara', 'Maluku', 'Papua Barat', 'Papua', 'Papua Tengah', 'Papua Pegunungan', 'Papua Selatan', 'Papua Barat Daya']
-            index = 1
-            for i in list:
-                print(f'{index}. {i}')
-                index +=1
             while True:
                 try:
-                    daerah = int(input('masukkan angka: ')) - 1
-                    if  0 <= daerah < len(list):
-                        data = list[daerah]
+                    Clear_terminal()
+                    daerah = ['Nanggroe Aceh Darussalam', 'Sumatera Utara', 'Sumatera Selatan', 'Sumatera Barat', 'Bengkulu', 'Riau', 'Kepulauan Riau', 'Jambi', 'Lampung', 'Bangka Belitung', 'Kalimantan Barat', 'Kalimantan Timur', 'Kalimantan Selatan', 'Kalimantan Tengah', 'Kalimantan Utara', 'Banten', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'Daerah Istimewa Yogyakarta', 'Jawa Timur', 'Bali', 'Nusa Tenggara Timur', 'Nusa Tenggara Barat', 'Gorontalo', 'Sulawesi Barat', 'Sulawesi Tengah', 'Sulawesi Utara', 'Sulawesi Tenggara', 'Sulawesi Selatan', 'Maluku Utara', 'Maluku', 'Papua Barat', 'Papua', 'Papua Tengah', 'Papua Pegunungan', 'Papua Selatan', 'Papua Barat Daya']
+                    kolom_1 = daerah[:len(daerah)//2]
+                    kolom_2 = daerah[len(daerah)//2:]
+                    print(f"{'No.' + ' '*2} {'Daerah' + ' '*34} {'No.' + ' '*2} {'Daerah' + ' '*34}")
+                    print('==========================================================================================')
+                    for index in range(len(kolom_1)):
+                        if index < 9:
+                            print(f"{str(index+1) + ' '*4} {str(kolom_1[index]) + ' '*(40-len(str(kolom_1[index])))} {str(index+20) + ' '*3} {str(kolom_2[index]) + ' '*34}")
+                        else:
+                            print(f"{str(index+1) + ' '*3} {str(kolom_1[index]) + ' '*(40-len(str(kolom_1[index])))} {str(index+20) + ' '*3} {str(kolom_2[index]) + ' '*34}")
+                        index +=1
+                    print('==========================================================================================')
+                
+                    daerahUser = int(input('⊳ masukkan angka daerah: ')) - 1
+                    if  0 <= daerahUser < len(daerah):
+                        data = daerah[daerahUser]
                         database = pd.read_csv('./database.csv')
-                        if '@gmail.com' not in email: return 'email tidak falid!'
-                        if email in database['Email'].values:return 'email sudah digunakan!'
+                        if '@gmail.com' not in email: 
+                            input(error('Email Yang Anda Masukkan Tidak Falid!'))
+                            return ''
+                        elif email in database['Email'].values:
+                            input(error('Email Yang Anda Masukkan Sudah Digunakan!'))
+                            return ''
                         No = len(pd.DataFrame(database))
                         Newdata = {
                             'ID': No+1,
@@ -48,37 +86,53 @@ def registrasi():
                             'Role': 'user',
                             'Daerah':data,
                             }
-                        print(Newdata)
                         datanew = pd.DataFrame(Newdata, index=[0])
                         datanew.to_csv("database.csv",mode='a',header=False ,index=False)
-                        return 'berhasil daftar!'
+                        Clear_terminal()
+                        input(f"""
+┌───────────────────────【 DAFTAR BERHASIL 】──────────────────────┐
+│                                                                  │
+│   ✦ Name         : {nama + ' '*(46-(len(nama))) + '│'}
+│   ✦ Email        : {email + ' '*(46-(len(email))) + '│'}
+│   ✦ Password     : {password + ' '*(46-(len(password))) + '│'}
+│   ✦ Daerah       : {data + ' '*(46-(len(data))) + '│'}
+│                                                                  │
+│   ─────────────────────────────────────────────────────────────  │
+│   Sign-in successful. Press enter to continue.                   │
+└──────────────────────────────────────────────────────────────────┘
+""")
+                        return ''
+                    else:
+                        input(error('hanya bisa memasukkan angka [1-38]'))
                 except ValueError:
-                    input(ValueError)
+                    input(error('hanya bisa memasukkan angka!'))
         else:
-            print( 'password 1 dan 2 tidak sama')
+            input(error('password 1 dan 2 tidak sama'))
 
 def login():
     Clear_terminal()
-    print(text_login + '\n\n')
-    print("""╭────〔 login menu 〕────☉
-│""")
-    email = input('├▷ Email: ')
-    print('│')
-    password = input('├▷ Masukkan Password: ')
-    print("""│
-╰────☉""")
-    input('Tekan enter untuk melanjutkan')
+    print('✦ ═════════════════════════【 Login Form 】═════════════════════════ ✦\n')
+    email = input('⊳ Masukkan Email: ')
+    password = input('⊳ Masukkan Password: ')
+    Clear_terminal()
+    input(f"""┌─────────────────────────【 Login Form 】─────────────────────────┐
+│                                                                  │
+│   ✦ Email        : {email + ' '*(46-(len(email))) + '│'}
+│   ✦ Password     : {password + ' '*(46-(len(password))) + '│'}
+│                                                                  │
+│   ─────────────────────────────────────────────────────────────  │
+│   Press enter to continue.                                       │
+└──────────────────────────────────────────────────────────────────┘""")
     database = pd.read_csv('./database.csv')
     if email in database['Email'].values:
         data = database[database['Email'] == email]
-        username = data['Name'].values[0]
         if data['Password'].values[0] == password:
             role = data['Role'].values[0]
         elif data['Password'].values[0] != password:
-            print('password salah')
+            input(error('Password salah!'))
             return None, None
     else: 
-        print('email tidak ada!. harap registrasi terlebih dahulu!')
+        input(error('Email tidak ada!. harap registrasi terlebih dahulu!'))
         return None, None
     return data['Email'].values[0], role
 
@@ -152,7 +206,18 @@ def menu(email, role):
 
 # ===============
 while True:
-    print("""1. Registrasi\n2. Login\n3. Keluar""")
+    Clear_terminal()
+    print("""
+╭──────────────────────╮
+│    SILAHKAN PILIH    │
+├──────────────────────┤
+│                      │
+│ ✧ 1. Registrasi      │
+│ ✧ 2. Login           │
+│ ✧ 3. Keluar          │
+│                      │
+╰──────────────────────╯
+      """.strip())
     try:
         inputan = int(input('Masukkan nomor [1-3]: '))
         if inputan == 1:
@@ -184,8 +249,7 @@ while True:
                                     break
                                 case ValueError:
                                     Clear_terminal()
-                                    print('Harus angka 1-4')
-                                    input('Tekan enter untuk melanjutkan!')
+                                    input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, 3, atau 4'))
                         elif role == 'user':
                             pilihan = input('Pilih menu: ')
                             match pilihan:
@@ -204,8 +268,7 @@ while True:
                                     break
                                 case ValueError:
                                     Clear_terminal()
-                                    print('Harus angka 1-3')
-                                    input('Tekan enter untuk melanjutkan!')
+                                    input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3'))
                         else: 
                             pilihan = input('Pilih menu: ')
                             match pilihan:
@@ -224,16 +287,14 @@ while True:
                                     break
                                 case ValueError:
                                     Clear_terminal()
-                                    print('Harus angka 1-3')
-                                    input('Tekan enter untuk melanjutkan!')
+                                    input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3'))
                 else:
-                    input('Tekan enter untuk melanjutkan!')
                     Clear_terminal()
         elif inputan == 3:
+                
                 break
         else :
-            print('HARUS MEMASUKKAN YANG ADA DIATAS!')
+            input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3'))
     except (ValueError)  :
         Clear_terminal()
-        print('Harus Angka!')
-        input('klik enter untuk melanjutkan')
+        input(error('Pilihan yang Anda masukkan tidak valid. Harap masukkan angka yang benar.'))
