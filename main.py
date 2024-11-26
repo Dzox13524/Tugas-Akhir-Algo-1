@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import subprocess
+from Fitur_E_commerce import main
 
 def Clear_terminal():
     if os.name == 'nt':
@@ -21,6 +22,7 @@ text_login = """
 ====================================================="""
 def registrasi():
     while True:
+        global email
         nama = input('Masukkan Nama:')
         email = input('Masukkan Email: ')
         password = input('Masukkan Password: ')
@@ -120,11 +122,10 @@ def menu(email, role):
     if role == 'admin':
         pembuka += f"""║┌─────────────────────────────────────────────────┐║
 ║│                    LIST MENU                    │║
-║├─────────────────────────────────────────────────┤║
-║├▶ 1. Feedback                                    │║
-║├▶ 2. E-Commerce                                  │║
-║├▶ 3. Inventaris Admin                            │║
-║├▶ 4. Log Out                                     │║
+║├─────────────────────────────────────────────────┤║                                    
+║├▶ 1. E-Commerce                                  │║
+║├▶ 2. Inventaris Admin                            │║
+║├▶ 3. Log Out                                     │║
 ║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
 """
@@ -174,7 +175,7 @@ while True:
                                     Clear_terminal()
                                     print("E-Commerce")
                                     input('Tekan enter untuk melanjutkan!')
-                                    list_barangS()
+                                    main()
                                 case '2':
                                     Clear_terminal()
                                     print('Inventaris Admin')
@@ -186,7 +187,7 @@ while True:
                                     break
                                 case ValueError:
                                     Clear_terminal()
-                                    print('Harus angka 1-4')
+                                    print('Harus angka 1-3')
                                     input('Tekan enter untuk melanjutkan!')
                         elif role == 'user':
                             pilihan = input('Pilih menu: ')
