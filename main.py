@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import subprocess
+from Fitur_E_commerce import main
 
 def Clear_terminal():
     if os.name == 'nt':
@@ -238,6 +239,7 @@ while True:
                                     Clear_terminal()
                                     print('E-Commerce')
                                     input('Tekan enter untuk melanjutkan!')
+                                    main()
                                 case '3':
                                     Clear_terminal()
                                     print('Inventaris Admin')     
