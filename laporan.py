@@ -46,11 +46,7 @@ def buat_laporan(user):
     data = buat_l[buat_l['Daerah'] == user].iloc[-1]
     data2 = data['status']
     if data2 == 'terkirim':
-        teks = 'Harap menunggu respon dari Pemerintah Pusat!'
-        print("\n╔════════════════════════════════════════════════════════╗")
-        print(f"║{teks:^56}║")
-        print("╚════════════════════════════════════════════════════════╝")
-        return 
+        return return input ('Harap menunggu respon dari Pemerintah Pusat!')
 
     subsidi = pd.read_csv("subsidi.csv")
     subsidi = subsidi.dropna(axis=1, how='all')
