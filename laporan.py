@@ -58,7 +58,7 @@ def buat_laporan(user):
     jumlah_list = []
     while True:
         tampilan_barang(subsidi)
-        kode_barang = input("\nMasukkan kode barang untuk memasukkan barang ke laporan (contoh: A.1) atau tekan 'Enter' untuk selesai: ").strip().upper()
+        kode_barang = input("\nMasukkan kode barang untuk memasukkan barang ke laporan (contoh: A.1) dan tekan 'Enter' untuk selesai atau ketik 'kembali' untuk kembali ke menu: ").strip().upper()
         if kode_barang == "":
             if not barang_list:
                 print("\nAnda harus memasukkan setidaknya satu barang sebelum selesai.")
