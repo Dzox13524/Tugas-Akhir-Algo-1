@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import subprocess
-from Fitur_E_commerce import main
+from Fitur_E_commerce_Admin import main
 
 def Clear_terminal():
     if os.name == 'nt':

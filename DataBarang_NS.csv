@@ -2,13 +2,13 @@ Barang dan Bahan Non Subsidi,Isi,Jumlah,Harga/Produk
 Benih,Tebu,1000,20000
 -----//-----,Kentang,1400,20000
 -----//-----,Cabe,1000,20000
-Pupuk,KCL,400,20000
+Pupuk,KCL,400,10000
 -----//-----,ZA,1000,20000
 -----//-----,Magnesium,500,20000
 Pestisida,Deltametrin,300,20000
 -----//-----,Dithane M-45,100,20000
 -----//-----,Omite 570 EC,100,20000
 Barang,Traktor tangan,10,1000000
------//-----,Pompa air,50,200000
------//-----,Mesin tanam,20,200000
+-----//-----,Pompa air,70,200000
+-----//-----,Mesin tanam,40,200000
 -----//-----,Sprayer modern,50,300000
