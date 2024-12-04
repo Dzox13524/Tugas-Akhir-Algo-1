@@ -1,10 +1,49 @@
 import pandas as pd
-from inventaris import inventaris
-from Error_Handling import error, Clear_terminal
+import os
+import subprocess
 import Fitur_E_commerce_Admin
 import laporan
 import main_invkepd
+def Clear_terminal():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        subprocess.call('clear')
 
+def error(messages):
+    atas = """╔════════════════════!!! ERROR DETECTED !!!════════════════════╗
+║                                                              ║"""
+    tengah = ''
+    bawah = """║                                                              ║
+╠──────────────────────────────────────────────────────────────╣
+║   Press enter to continue.                                   ║
+╚══════════════════════════════════════════════════════════════╝
+"""
+    data = messages.split()
+    hasil = []
+    result = '║ ⚠ ERROR: '
+    index = 0
+
+    for i in data:
+        if len(result) + len(i) + 1 <= 63:
+            result += i + " "
+            index += 1
+        else:
+            result += ' ' * (63 - len(result)) + '║'
+            hasil.append(result)
+            result = '║ '
+            result += i + " "
+
+    if result.strip() != '║':
+        result += ' ' * (63 - len(result)) + '║'
+        hasil.append(result)
+
+    for i in hasil:
+        tengah += f"\n{i.strip()}"
+    
+    Clear_terminal()
+    return f'{atas}{tengah}\n{bawah}'
+     
 def registrasi():
     Clear_terminal()
     while True:
@@ -184,7 +223,8 @@ while True:
                                     Fitur_E_commerce_Admin.main()
                                 case '2':
                                     Clear_terminal()
-                                    print(inventaris())
+                                    print('E-Commerce')
+                                    input('Tekan enter untuk melanjutkan!')
                                 case '3':
                                     Clear_terminal()
                                     print('Log Out')     

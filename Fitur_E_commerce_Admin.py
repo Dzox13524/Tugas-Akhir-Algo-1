@@ -1,7 +1,18 @@
 import pandas as pd #Fitur Import
 import os 
+
 import time
 from Error_Handling import error, Clear_terminal
+
+import subprocess
+import time
+from time import sleep
+
+def Clear_terminal():#Membersihkan Terminal
+    if os.name == 'nt':
+        os.system('cls')
+    else:   
+        subprocess.call('clear')
         
 def gaya_tulisan(pesan,pesan2,pesan3):#3 Pesan
     panjang_terminal = os.get_terminal_size().columns
@@ -43,6 +54,42 @@ def gaya_loading(): #Loading
     for char in pesan_input:
         print(char, end="", flush=True)
         time.sleep(0.1)
+
+
+def error(messages): #Untuk Error Handling
+    atas = """╔════════════════════!!! ERROR DETECTED !!!════════════════════╗
+║                                                              ║"""
+    tengah = ''
+    bawah = """║                                                              ║
+╠──────────────────────────────────────────────────────────────╣
+║   Press enter to continue.                                   ║
+╚══════════════════════════════════════════════════════════════╝
+"""
+    data = messages.split()
+    hasil = []
+    result = '║ ⚠ ERROR: '
+    index = 0
+
+    for i in data:
+        if len(result) + len(i) + 1 <= 63:
+            result += i + " "
+            index += 1
+        else:
+            result += ' ' * (63 - len(result)) + '║'
+            hasil.append(result)
+            result = '║ '
+            result += i + " "
+
+    if result.strip() != '║':
+        result += ' ' * (63 - len(result)) + '║'
+        hasil.append(result)
+
+    for i in hasil:
+        tengah += f"\n{i.strip()}"
+    
+    Clear_terminal()
+    return f'{atas}{tengah}\n{bawah}'
+
 
 def gaya_progress(): #Progress Dalam Persen
     for i in range(101):

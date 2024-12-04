@@ -1,5 +1,9 @@
 Barang dan Bahan Non Subsidi,Isi,Jumlah,Harga/Produk
+<<<<<<< HEAD
 Benih,Tebu,1000,1
+=======
+Benih,Tebu,1000,20000
+>>>>>>> 19699b5bc6d6a0ea2afe87634c2821369c0c7cf1
 -----//-----,Kentang,1400,20000
 -----//-----,Cabe,1000,20000
 Pupuk,KCL,400,10000
