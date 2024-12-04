@@ -4,6 +4,9 @@ import subprocess
 import Fitur_E_commerce_Admin
 import laporan
 import main_invkepd
+from inventaris import inventaris
+
+
 def Clear_terminal():
     if os.name == 'nt':
         os.system('cls')
@@ -223,8 +226,7 @@ while True:
                                     Fitur_E_commerce_Admin.main()
                                 case '2':
                                     Clear_terminal()
-                                    print('E-Commerce')
-                                    input('Tekan enter untuk melanjutkan!')
+                                    print(inventaris())
                                 case '3':
                                     Clear_terminal()
                                     print('Log Out')     
