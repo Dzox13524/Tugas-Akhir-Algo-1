@@ -1,0 +1,42 @@
+ID,Name,Email,Password,Role,Daerah
+0,Algoasik,algoasik@gmail.com,admin123,admin,Jawa Timur
+1,Arif Budiman,nanggroeaceh@gmail.com,38f9d9e,kepda,Nanggroe Aceh Darussalam
+2,Ismail Kurniawan,sumut@gmail.com,4f9d8e1,kepda,Sumatera Utara
+3,Siti Aisyah,sumsel@gmail.com,7a9f2c3,kepda,Sumatera Selatan
+4,Riko Pratama,sumbars@gmail.com,2b4d9c7,kepda,Sumatera Barat
+5,Indah Sari,bengkulu@gmail.com,5f3a8d2,kepda,Bengkulu
+6,Reza Kurniawan,riau@gmail.com,8d4e2b9,kepda,Riau
+7,Firdaus Hidayat,kepulauanriau@gmail.com,9f3c7a6,kepda,Kepulauan Riau
+8,Aulia Rahmawati,jambi@gmail.com,3a9d5b2,kepda,Jambi
+9,Andi Setiawan,lampung@gmail.com,2b8a6c3,kepda,Lampung
+10,Devi Mutiara,babel@gmail.com,1c4d3f7,kepda,Bangka Belitung
+11,Rama Satria,kalbar@gmail.com,3b5f9d2,kepda,Kalimantan Barat
+12,Alfian Dwi,kaltim@gmail.com,4c2a8f6,kepda,Kalimantan Timur
+13,Nina Farina,kalsel@gmail.com,6d7f9c3,kepda,Kalimantan Selatan
+14,Taufik Hidayat,kalteng@gmail.com,1e5b7f9,kepda,Kalimantan Tengah
+15,Selina Rani,kalut@gmail.com,2c4e9a3,kepda,Kalimantan Utara
+16,Syahira Salsabila,banten@gmail.com,3a8b7c6,kepda,Banten
+17,Putra Wijaya,dkijakarta@gmail.com,9e3c2f1,kepda,DKI Jakarta
+18,Galih Wicaksono,jabar@gmail.com,8b1a7f4,kepda,Jawa Barat
+19,Maya Santoso,jateng@gmail.com,5c2f9a6,kepda,Jawa Tengah
+20,Yuniar Pramudya,DIY@gmail.com,4d6a8b2,kepda,Daerah Istimewa Yogyakarta
+21,Agus Setiawan,jatim@gmail.com,7e9d1f2,kepda,Jawa Timur
+22,Adi Nugroho,bali@gmail.com,6a2b4d7,kepda,Bali
+23,Desi Nurul,ntt@gmail.com,8f3c1d4,kepda,Nusa Tenggara Timur
+24,Fahmi Arif,ntb@gmail.com,9b4a6c2,kepda,Nusa Tenggara Barat
+25,Idris Alamsyah,gorontalo@gmail.com,5d8b2c1,kepda,Gorontalo
+26,Dwi Ramadhan,sulbar@gmail.com,4a3b6f9,kepda,Sulawesi Barat
+27,Anisa Farisya,sulteng@gmail.com,1d7e2f3,kepda,Sulawesi Tengah
+28,Nazaruddin Rifa’i,sulut@gmail.com,2b9a7f4,kepda,Sulawesi Utara
+29,Syahrul Fadillah,sultra@gmail.com,3e5d8b9,kepda,Sulawesi Tenggara
+30,Farhan Habibi,sulsel@gmail.com,8c4a3b2,kepda,Sulawesi Selatan
+31,Alfiansyah Faizal,malut@gmail.com,7f9b6a1,kepda,Maluku Utara
+32,Maria Ulfah,maluku@gmail.com,6d2f5b9,kepda,Maluku
+33,Erwin Prabowo,papuwabarat@gmail.com,9b4c3a7,kepda,Papua Barat
+34,Arifin Abdul,papua@gmail.com,2e7f1c4,kepda,Papua
+35,Novi Aris,papuatengah@gmail.com,5c8f3d7,kepda,Papua Tengah
+36,Nurul Hidayah,papuapegunungan@gmail.com,1a9f8b6,kepda,Papua Pegunungan
+37,Yudhi Wijaya,papuaselatan@gmail.com,3b2a7f9,kepda,Papua Selatan
+38,Shinta Kurniadi,papuabaratdaya@gmail.com,7e6d2f5,kepda,Papua Barat Daya
+40,Ahmad,a@gmail.com,11,user,Nanggroe Aceh Darussalam
+41,Ahmadff,aa@gmail.com,admin123,user,Sumatera Utara

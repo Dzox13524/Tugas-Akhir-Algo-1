@@ -1,47 +1,10 @@
 import pandas as pd
-import os
-import subprocess
+from inventaris import inventaris
+from Error_Handling import error, Clear_terminal
+import Fitur_E_commerce_Admin
+import laporan
+import main_invkepd
 
-def Clear_terminal():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        subprocess.call('clear')
-
-def error(messages):
-    atas = """╔════════════════════!!! ERROR DETECTED !!!════════════════════╗
-║                                                              ║"""
-    tengah = ''
-    bawah = """║                                                              ║
-╠──────────────────────────────────────────────────────────────╣
-║   Press enter to continue.                                   ║
-╚══════════════════════════════════════════════════════════════╝
-"""
-    data = messages.split()
-    hasil = []
-    result = '║ ⚠ ERROR: '
-    index = 0
-
-    for i in data:
-        if len(result) + len(i) + 1 <= 63:
-            result += i + " "
-            index += 1
-        else:
-            result += ' ' * (63 - len(result)) + '║'
-            hasil.append(result)
-            result = '║ '
-            result += i + " "
-
-    if result.strip() != '║':
-        result += ' ' * (63 - len(result)) + '║'
-        hasil.append(result)
-
-    for i in hasil:
-        tengah += f"\n{i.strip()}"
-    
-    Clear_terminal()
-    return f'{atas}{tengah}\n{bawah}'
-     
 def registrasi():
     Clear_terminal()
     while True:
@@ -70,7 +33,7 @@ def registrasi():
                     daerahUser = int(input('⊳ masukkan angka daerah: ')) - 1
                     if  0 <= daerahUser < len(daerah):
                         data = daerah[daerahUser]
-                        database = pd.read_csv('./database.csv')
+                        database = pd.read_csv('./users.csv')
                         if '@gmail.com' not in email: 
                             input(error('Email Yang Anda Masukkan Tidak Falid!'))
                             return ''
@@ -87,7 +50,7 @@ def registrasi():
                             'Daerah':data,
                             }
                         datanew = pd.DataFrame(Newdata, index=[0])
-                        datanew.to_csv("database.csv",mode='a',header=False ,index=False)
+                        datanew.to_csv("users.csv",mode='a',header=False ,index=False)
                         Clear_terminal()
                         input(f"""
 ┌───────────────────────【 DAFTAR BERHASIL 】──────────────────────┐
@@ -123,7 +86,7 @@ def login():
 │   ─────────────────────────────────────────────────────────────  │
 │   Press enter to continue.                                       │
 └──────────────────────────────────────────────────────────────────┘""")
-    database = pd.read_csv('./database.csv')
+    database = pd.read_csv('./users.csv')
     if email in database['Email'].values:
         data = database[database['Email'] == email]
         if data['Password'].values[0] == password:
@@ -134,51 +97,37 @@ def login():
     else: 
         input(error('Email tidak ada!. harap registrasi terlebih dahulu!'))
         return None, None
-    return data['Email'].values[0], role
-
-def list_barangS():
-    barang = pd.read_csv('./barangdanbahanS.csv')
-    text = """
-╔───────────────────────────────────────────────────╗
-║             LIST BARANG DAN BAHAN SUBSIDI         ║
-╠───────────────────────────────────────────────────╣\n"""
-    index = 0
-    loop = 0
-    for i in barang:
-        text+= f"║{i.upper()}" + ' '*(53-len(i)-2) + '║'+ '\n'
-        for data in barang[i]:
-            if str(data) == 'nan':continue
-            else:
-                text += f"║  ▪ {str(data)}" + ' '*(53-len(str(data))-6) + '║'+ '\n'
-                index+=1
-        if loop < len(barang) :
-            text+= f"╠───────────────────────────────────────────────────╣\n"
-            loop += 1
-        else : 
-            text+= f"╚───────────────────────────────────────────────────╝\n"
-    return text
+    return data['Email'].values[0], data['Daerah'].values[0], role
+    
 
 def menu(email, role):
     Clear_terminal()
-    data = pd.read_csv('./database.csv')
+    pembuka = ''
+    data = pd.read_csv('./users.csv')
     data2 = data[data['Email'] == email].iloc[0].to_dict()
-    pembuka = f'Selamat datang {data2['Name'].upper()} selamat berbelanja :>\n\n'
+    if data2['Role'] == 'kepda':
+        data2['Role'] = 'Kepala Daerah'
+        teks = f"Selamat datang, Kepala Daerah {data2['Daerah']}!"
+        if len(teks) > 49:
+            teks = f'''Selamat datang, Kepala Daerah\n{data2['Daerah']}!'''
+        pembuka = f"""\n╔═══════════════════════════════════════════════════╗\n║{teks:^51}║\n╚═══════════════════════════════════════════════════╝\n"""
+    elif data2['Role'] == 'user':
+        pembuka = f'Selamat datang {data2['Name'].upper()} selamat berbelanja :>\n\n'
+
     pembuka += f"""╔───────────────────────────────────────────────────╗
 ║                   DATA INFORMASI                  ║
 ╠───────────────────────────────────────────────────╣
 ║ ⊳ Name   : {data2['Name'].upper() + ' '*(51-len(data2['Name']) - 12) + '║'}
 ║ ⊳ Role   : {data2['Role'] + ' '*(51-len(data2['Role']) - 12) + '║'}
 ║ ⊳ Lokasi : {data2['Daerah'] + ' '*(51-len(data2['Daerah']) - 12) + '║'}
-║ ⊳ Pesan  : 0                                      ║
 ╠───────────────────────────────────────────────────╣\n"""
     if role == 'admin':
         pembuka += f"""║┌─────────────────────────────────────────────────┐║
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║
-║├▶ 1. Feedback                                    │║
-║├▶ 2. E-Commerce                                  │║
-║├▶ 3. Inventaris Admin                            │║
-║├▶ 4. Log Out                                     │║
+║├▶ 1. E-Commerce                                  │║
+║├▶ 2. Inventaris Admin                            │║
+║├▶ 3. Log Out                                     │║
 ║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
 """
@@ -223,8 +172,8 @@ while True:
         if inputan == 1:
                 print(registrasi())
         elif inputan == 2:
-                username, role = login()
-                if username and role:
+                username, daerah, role = login()
+                if username and daerah and role:
                     while True:
                         menu(username,role)
                         if role == 'admin':
@@ -232,17 +181,11 @@ while True:
                             match pilihan: 
                                 case '1':
                                     Clear_terminal()
-                                    print("Feedback")
-                                    input('Tekan enter untuk melanjutkan!')
+                                    Fitur_E_commerce_Admin.main()
                                 case '2':
                                     Clear_terminal()
-                                    print('E-Commerce')
-                                    input('Tekan enter untuk melanjutkan!')
+                                    print(inventaris())
                                 case '3':
-                                    Clear_terminal()
-                                    print('Inventaris Admin')     
-                                    input('Tekan enter untuk melanjutkan!')                           
-                                case '4':
                                     Clear_terminal()
                                     print('Log Out')     
                                     input('Tekan enter untuk melanjutkan!')
@@ -274,16 +217,13 @@ while True:
                             match pilihan:
                                 case '1':
                                     Clear_terminal()
-                                    print(list_barangS()) 
-                                    input('Tekan enter untuk melanjutkan!')
+                                    laporan.buat_laporan(daerah)
                                 case '2':
                                     Clear_terminal()
-                                    print('Inventaris') 
-                                    input('Tekan enter untuk melanjutkan!')
+                                    main_invkepd.menu_inventaris(daerah)
                                 case '3':
                                     Clear_terminal()
-                                    print('log out') 
-                                    input('Tekan enter untuk melanjutkan!')
+                                    input(f'╔════════════════════════════════════════════════════════╗\n║{'Anda telah logout. Sampai jumpa!'.center(56)}║\n╚════════════════════════════════════════════════════════╝')
                                     break
                                 case ValueError:
                                     Clear_terminal()
