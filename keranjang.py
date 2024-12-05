@@ -77,7 +77,7 @@ def keranjang():
             if edit.lower() == 'y':
                 Clear_terminal()
                 gaya_keranjang()
-                pilih = input("Pilih barang yang ingin di kurangi")
+                pilih = input("Pilih barang yang ingin di kurangi: ")
                 if pilih not in total_barang['Nama Produk'].values:
                     print(error('Barang tidak ditemukan\nSilahkan belanja terlebih dahulu'))
                     continue
@@ -85,7 +85,7 @@ def keranjang():
                     barang_edit = int(input("Masukkan jumlah barang yang ingin di kurangi: "))
                     total_barang.loc[total_barang['Nama Produk'] == pilih, 'Jumlah Produk'] -= barang_edit
                     total_barang.to_csv('keranjang.csv',index=False)
-                    break
+                    continue
             elif edit.lower() == 'n':
                 Clear_terminal()
                 gaya_keranjang()
@@ -103,11 +103,14 @@ def keranjang():
                 total_barang = pd.DataFrame(columns=['No', 'Nama Produk', 'Jumlah Produk'])
                 total_barang.to_csv('keranjang.csv', index=False)
                 break
+            else:
+                print(error('Pilihan tidak tersedia'))
+                continue
         except ValueError:
             Clear_terminal()
             print(error('Input tidak valid'))
             continue
-        return
+    return
 
 def mulai():
     Clear_terminal()

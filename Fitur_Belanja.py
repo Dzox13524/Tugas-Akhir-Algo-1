@@ -5,6 +5,7 @@ import time
 from time import sleep
 import Fitur_E_commerce as fe
 
+
 def clear_terminal():
     if os.name == 'nt':
         os.system('cls')
@@ -122,28 +123,35 @@ def daftar_produk():
                 input()
                 continue
         while True:
-            clear_terminal()
             try:
+                clear_terminal()
                 fe.Data_baru()
                 gaya_keranjang()
-                jumlah_barang = int(input(f"{produk} saat ini: {jumlah_sekarang}\nMasukkan jumlah produk yang ingin dibeli: "))
                 global total_barang
                 total_barang = pd.read_csv('keranjang.csv')
-                barang_keranjang = total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'].values[0]
-                if jumlah_barang + barang_keranjang > jumlah_sekarang:
-                    print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
-                    input()
-                    daftar_produk()
-                else:
-                    fe.gaya_progress(f'Memasukkan {produk} ke keranjang')
-                    if produk in total_barang['Nama Produk'].values:
-                        if total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'] + jumlah_barang > jumlah_sekarang:
-                            print(error('Jumlah Input Di keranjang melebihi jumlah yang tersedia'))
-                            continue
+                jumlah_barang = int(input(f"{produk} saat ini: {jumlah_sekarang}\nMasukkan jumlah produk yang ingin dibeli: "))
+                
+                if produk in total_barang['Nama Produk'].values:
+                    barang_keranjang = total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'].values[0]
+                    if jumlah_barang + barang_keranjang > jumlah_sekarang:
+                        print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
+                        input()
+                        daftar_produk()
+                    else:
+                        if jumlah_barang >= jumlah_sekarang:
+                            print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
+                            input()
+                            daftar_produk()
                         else:
                             total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'] += jumlah_barang
-                            total_barang.to_csv('keranjang.csv',index=False)
-                            break
+                else:
+                    if jumlah_barang >= jumlah_sekarang:
+                        print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
+                        input()
+                        daftar_produk()
+                    if produk in total_barang['Nama Produk'].values:
+                        total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'] += jumlah_barang
+                        total_barang.to_csv('keranjang.csv',index=False)
                     else:
                         keranjang = {
                             'No' : len(total_barang) +1,
@@ -157,25 +165,21 @@ def daftar_produk():
             except ValueError:
                 print(error("INPUT HARUS BERUPA BILANGAN BULAT DAN HANYA ANGKA"))
                 enter1 = input('')
-                while enter1 != '':
-                        clear_terminal()
-                        print(welcome_message())
-                        print(inpo("TEKAN ENTER BUKAN YANG LAIN"))
-                        enter1 = input('')
-                        continue
                 continue
+            break
+        fe.gaya_progress(f'Memasukkan {produk} ke keranjang')
+        total_barang.to_csv('keranjang.csv', index=False)
         print(success_message('Produk Berhasil Ditambahkan!!!'))
         while True:
             konfirmasi_belanja = input('Lanjutkan Berbelanja?\n[y/n]: ')
             if konfirmasi_belanja.lower() == 'y':
-                break
+                daftar_produk()
             elif konfirmasi_belanja.lower() == 'n':
                 return 'n'
             else:
                 print(error("Pilihan Tidak Valid"))
                 input('')
                 continue
-        continue
 
 
 
@@ -184,5 +188,4 @@ def mainn():
         clear_terminal()
         if daftar_produk() == "n":
             break
-        return
-mainn()
+    return
