@@ -1,14 +1,14 @@
-Barang dan Bahan Non Subsidi,Isi,Jumlah,Harga/Produk
-Benih,Tebu,1000,20000
------//-----,Kentang,1400,20000
------//-----,Cabe,1000,20000
-Pupuk,KCL,400,20000
------//-----,ZA,1000,20000
------//-----,Magnesium,500,20000
-Pestisida,Deltametrin,300,20000
------//-----,Dithane M-45,100,20000
------//-----,Omite 570 EC,100,20000
-Barang,Traktor tangan,10,1000000
------//-----,Pompa air,50,200000
------//-----,Mesin tanam,20,200000
------//-----,Sprayer modern,50,300000
+Unnamed: 0,Barang dan Bahan Non Subsidi,Isi,Jumlah,Harga/Produk
+0,Benih,Tebu,1000,20000
+1,Benih,Kentang,1000,20000
+2,Benih,Cabe,1000,20000
+3,Pupuk,KCL,400,10000
+4,Pupuk,ZA,1000,20000
+5,Pupuk,Magnesium,500,20000
+6,Pestisida,Deltametrin,300,20000
+7,Pestisida,Dithane M-45,100,20000
+8,Pestisida,Omite 570 EC,100,20000
+9,Barang,Traktor tangan,10,1000000
+10,Barang,Pompa air,90,200000
+11,Barang,Mesin tanam,40,200000
+12,Barang,Sprayer modern,50,300000

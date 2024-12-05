@@ -85,10 +85,11 @@ def error(messages): #Untuk Error Handling
     Clear_terminal()
     return f'{atas}{tengah}\n{bawah}'
 
-def gaya_progress(): #Progress Dalam Persen
+def gaya_progress(pesan):#Progress Dalam Persen
+    print(pesan) 
     for i in range(101):
         print(f"\rProgress: {i}%", end='', flush=True)
-        time.sleep(0.01)
+        time.sleep(0.05)
 
 def Data_baru():
     global database

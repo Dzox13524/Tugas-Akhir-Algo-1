@@ -1,7 +1,9 @@
 import pandas as pd
 import os
 import subprocess
-from Fitur_E_commerce import main
+import Fitur_E_commerce as fe
+import Fitur_Belanja as fb
+import keranjang as ker
 
 def Clear_terminal():
     if os.name == 'nt':
@@ -42,7 +44,7 @@ def error(messages):
     
     Clear_terminal()
     return f'{atas}{tengah}\n{bawah}'
-     
+
 def registrasi():
     Clear_terminal()
     while True:
@@ -218,7 +220,7 @@ while True:
 │ ✧ 3. Keluar          │
 │                      │
 ╰──────────────────────╯
-      """.strip())
+    """.strip())
     try:
         inputan = int(input('Masukkan nomor [1-3]: '))
         if inputan == 1:
@@ -239,7 +241,7 @@ while True:
                                     Clear_terminal()
                                     print('E-Commerce')
                                     input('Tekan enter untuk melanjutkan!')
-                                    main()
+                                    fe.main()
                                 case '3':
                                     Clear_terminal()
                                     print('Inventaris Admin')     
@@ -259,10 +261,12 @@ while True:
                                     Clear_terminal()
                                     print('belanja') 
                                     input('Tekan enter untuk melanjutkan!')
+                                    fb.mainn()
                                 case '2':
                                     Clear_terminal()
                                     print('keranjang') 
                                     input('Tekan enter untuk melanjutkan!')
+                                    ker.mulai()
                                 case '3':
                                     Clear_terminal()
                                     print('log out') 
