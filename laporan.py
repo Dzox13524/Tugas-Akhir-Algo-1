@@ -1,303 +1,228 @@
 import pandas as pd
-import os
-import subprocess
-import laporan
-import main_invkepd
+from datetime import datetime
 
-def Clear_terminal():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        subprocess.call('clear')
+def data_csv():
+    subsidi = pd.read_csv("subsidi.csv")
+    subsidi = subsidi.dropna(axis=1, how='all')
+    subsidi = subsidi.dropna(axis=0, how='all')
+    subsidi = subsidi.fillna("")
+    return subsidi
 
-def error(messages):
-    atas = """╔════════════════════!!! ERROR DETECTED !!!════════════════════╗
-║                                                              ║"""
-    tengah = ''
-    bawah = """║                                                              ║
-╠──────────────────────────────────────────────────────────────╣
-║   Press enter to continue.                                   ║
-╚══════════════════════════════════════════════════════════════╝
-"""
-    data = messages.split()
-    hasil = []
-    result = '║ ⚠ ERROR: '
-    index = 0
+def tampilan_barang(subsidi):
+    print("\n")
+    print("\n╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+    print("║                                                       LIST BARANG DAN BAHAN SUBSIDI PERTANIAN                                                                   ║")
+    print("╠═══════════════════════════════╦════════════════════════════════╦═════════════════════════════════╦═══════════════════════════════╦══════════════════════════════╣")
+    print("║ Benih [A]                     ║ Pupuk [B]                      ║ Pestisida [C]                   ║ Herbisida [D]                 ║ Barang [E]                   ║")
+    print("╠═══════════════════════════════╬════════════════════════════════╬═════════════════════════════════╬═══════════════════════════════╬══════════════════════════════╣")
 
-    for i in data:
-        if len(result) + len(i) + 1 <= 63:
-            result += i + " "
-            index += 1
+    max_rows = len(subsidi)
+    for i in range(max_rows):
+        benih = f"A.{i+1} {subsidi['Benih'][i]}" if subsidi['Benih'][i] else ""
+        pupuk = f"B.{i+1} {subsidi['Pupuk'][i]}" if subsidi['Pupuk'][i] else ""
+        pestisida = f"C.{i+1} {subsidi['Pestisida'][i]}" if subsidi['Pestisida'][i] else ""
+        herbisida = f"D.{i+1} {subsidi['Herbisida'][i]}" if subsidi['Herbisida'][i] else ""
+        barang = f"E.{i+1} {subsidi['Barang'][i]}" if subsidi['Barang'][i] else ""
+
+        print(f"║ {benih:<29} ║ {pupuk:<30} ║ {pestisida:<31} ║ {herbisida:<29} ║ {barang:<28} ║")
+
+        if i < max_rows - 1:
+            print("╠═══════════════════════════════╬════════════════════════════════╬═════════════════════════════════╬═══════════════════════════════╬══════════════════════════════╣")
         else:
-            result += ' ' * (63 - len(result)) + '║'
-            hasil.append(result)
-            result = '║ '
-            result += i + " "
+            print("╚═══════════════════════════════╩════════════════════════════════╩═════════════════════════════════╩═══════════════════════════════╩══════════════════════════════╝")
 
-    if result.strip() != '║':
-        result += ' ' * (63 - len(result)) + '║'
-        hasil.append(result)
+def Ringkasan(barang_list, jumlah_list):
+    lebar_barang = 30
+    lebar_jumlah = 19  
+    print("╔════════════════════════════════════════════════════════╗")
+    print(f"║ {'DAFTAR BARANG DAN BAHAN SUBSIDI DIPILIH':^54} ║")
+    print("╠════════════════════════════════════════════════════════╣")
+    for i, (barang, jumlah) in enumerate(zip(barang_list, jumlah_list), start=1):
+        print(f"║ {i:<3} {barang:<{lebar_barang}} {jumlah:<{lebar_jumlah}} ║")
+    print("╚════════════════════════════════════════════════════════╝")
 
-    for i in hasil:
-        tengah += f"\n{i.strip()}"
-    
-    Clear_terminal()
-    return f'{atas}{tengah}\n{bawah}'
-     
-def registrasi():
-    Clear_terminal()
-    while True:
-        print('✦ ═══════════════════════【 Regitrasi Form 】═══════════════════════ ✦\n')
-        nama = input('⊳ Masukkan Nama        : ').capitalize()
-        email = input('⊳ Masukkan Email       : ')
-        password = input('⊳ Masukkan Password    : ')
-        password2 = input('⊳ Konfirmasi Password  : ') 
-        if password == password2:
+def e_Ringkasan(barang_list, jumlah_list, subsidi):
+    edit = input("\nApakah ada daftar barang yang tidak sesuai? (y/n): ").strip().lower()
+    if edit == "y":
+        opsi = input("\nApakah anda ingin mengubah kode barang atau menghapus barang? (ketik 'ubah'/'hapus')\nKetik pilihan: ").strip().lower()
+        if opsi == "ubah":
             while True:
-                try:
-                    Clear_terminal()
-                    daerah = ['Nanggroe Aceh Darussalam', 'Sumatera Utara', 'Sumatera Selatan', 'Sumatera Barat', 'Bengkulu', 'Riau', 'Kepulauan Riau', 'Jambi', 'Lampung', 'Bangka Belitung', 'Kalimantan Barat', 'Kalimantan Timur', 'Kalimantan Selatan', 'Kalimantan Tengah', 'Kalimantan Utara', 'Banten', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'Daerah Istimewa Yogyakarta', 'Jawa Timur', 'Bali', 'Nusa Tenggara Timur', 'Nusa Tenggara Barat', 'Gorontalo', 'Sulawesi Barat', 'Sulawesi Tengah', 'Sulawesi Utara', 'Sulawesi Tenggara', 'Sulawesi Selatan', 'Maluku Utara', 'Maluku', 'Papua Barat', 'Papua', 'Papua Tengah', 'Papua Pegunungan', 'Papua Selatan', 'Papua Barat Daya']
-                    kolom_1 = daerah[:len(daerah)//2]
-                    kolom_2 = daerah[len(daerah)//2:]
-                    print(f"{'No.' + ' '*2} {'Daerah' + ' '*34} {'No.' + ' '*2} {'Daerah' + ' '*34}")
-                    print('==========================================================================================')
-                    for index in range(len(kolom_1)):
-                        if index < 9:
-                            print(f"{str(index+1) + ' ' * 4} {str(kolom_1[index]) + ' ' * (40-len(str(kolom_1[index])))} {str(index+20) + ' '*3} {str(kolom_2[index]) + ' '*34}")
+                Ringkasan(barang_list, jumlah_list)
+                index = int(input("Masukkan nomor barang yang ingin diubah: ")) - 1
+                if 0 <= index < len(barang_list):
+                    tampilan_barang(subsidi)
+                    Ringkasan(barang_list, jumlah_list)
+                    kode_barang = input("Masukkan kode barang baru (contoh: A.1): ").strip().upper()
+                    try:
+                        kategori, indeks = kode_barang.split(".")
+                        indeks = int(indeks) - 1
+
+                        if kategori == "A" and 0 <= indeks < len(subsidi) - 1:
+                            barang_list[index] = subsidi["Benih"][indeks]
+                        elif kategori == "B" and 0 <= indeks < len(subsidi) - 1:
+                            barang_list[index] = subsidi["Pupuk"][indeks]
+                        elif kategori == "C" and 0 <= indeks < len(subsidi) - 1:
+                            barang_list[index] = subsidi["Pestisida"][indeks]
+                        elif kategori == "D" and 0 <= indeks < len(subsidi) - 1:
+                            barang_list[index] = subsidi["Herbisida"][indeks]
+                        elif kategori == "E" and 0 <= indeks < len(subsidi):
+                            barang_list[index] = subsidi["Barang"][indeks]
                         else:
-                            print(f"{str(index+1) + ' ' * 3} {str(kolom_1[index]) + ' ' * (40-len(str(kolom_1[index])))} {str(index+20) + ' '*3} {str(kolom_2[index]) + ' '*34}")
-                        index +=1
-                    print('==========================================================================================')
-                
-                    daerahUser = int(input('⊳ masukkan angka daerah: ')) - 1
-                    if  0 <= daerahUser < len(daerah):
-                        data = daerah[daerahUser]
-                        database = pd.read_csv('./users.csv')
-                        if '@gmail.com' not in email: 
-                            input(error('Email Yang Anda Masukkan Tidak Falid!'))
-                            return ''
-                        elif email in database['Email'].values:
-                            input(error('Email Yang Anda Masukkan Sudah Digunakan!'))
-                            return ''
-                        No = len(pd.DataFrame(database))
-                        Newdata = {
-                            'ID': No+1,
-                            'Name':nama,
-                            'Email':email,
-                            'Password': password,
-                            'Role': 'user',
-                            'Daerah':data,
-                            }
-                        datanew = pd.DataFrame(Newdata, index=[0])
-                        datanew.to_csv("users.csv",mode='a',header=False ,index=False)
-                        Clear_terminal()
-                        input(f"""
-┌───────────────────────【 DAFTAR BERHASIL 】──────────────────────┐
-│                                                                  │
-│   ✦ Name         : {nama + ' '*(46-(len(nama))) + '│'}
-│   ✦ Email        : {email + ' '*(46-(len(email))) + '│'}
-│   ✦ Password     : {password + ' '*(46-(len(password))) + '│'}
-│   ✦ Daerah       : {data + ' '*(46-(len(data))) + '│'}
-│                                                                  │
-│   ─────────────────────────────────────────────────────────────  │
-│   Sign-in successful. Press enter to continue.                   │
-└──────────────────────────────────────────────────────────────────┘
-""")
-                        return ''
-                    else:
-                        input(error('hanya bisa memasukkan angka [1-38]'))
-                except ValueError:
-                    input(error('hanya bisa memasukkan angka!'))
-        else:
-            input(error('password 1 dan 2 tidak sama'))
+                            print("Kode barang tidak valid. Pastikan kode sesuai dengan daftar.")
+                            continue
 
-def login():
-    Clear_terminal()
-    print('✦ ═════════════════════════【 Login Form 】═════════════════════════ ✦\n')
-    email = input('⊳ Masukkan Email: ')
-    password = input('⊳ Masukkan Password: ')
-    Clear_terminal()
-    input(f"""┌─────────────────────────【 Login Form 】─────────────────────────┐
-│                                                                  │
-│   ✦ Email        : {email + ' '*(46-(len(email))) + '│'}
-│   ✦ Password     : {password + ' '*(46-(len(password))) + '│'}
-│                                                                  │
-│   ─────────────────────────────────────────────────────────────  │
-│   Press enter to continue.                                       │
-└──────────────────────────────────────────────────────────────────┘""")
-    database = pd.read_csv('./users.csv')
-    if email in database['Email'].values:
-        data = database[database['Email'] == email]
-        if data['Password'].values[0] == password:
-            role = data['Role'].values[0]
-        elif data['Password'].values[0] != password:
-            input(error('Password salah!'))
-            return None, None
-    else: 
-        input(error('Email tidak ada!. harap registrasi terlebih dahulu!'))
-        return None, None
-    return data['Email'].values[0], data['Daerah'].values[0], role
-
-def list_barangS():
-    barang = pd.read_csv('./barangdanbahanS.csv')
-    text = """
-╔───────────────────────────────────────────────────╗
-║             LIST BARANG DAN BAHAN SUBSIDI         ║
-╠───────────────────────────────────────────────────╣\n"""
-    index = 0
-    loop = 0
-    for i in barang:
-        text+= f"║{i.upper()}" + ' '*(53-len(i)-2) + '║'+ '\n'
-        for data in barang[i]:
-            if str(data) == 'nan':continue
-            else:
-                text += f"║  ▪ {str(data)}" + ' '*(53-len(str(data))-6) + '║'+ '\n'
-                index+=1
-        if loop < len(barang) :
-            text+= f"╠───────────────────────────────────────────────────╣\n"
-            loop += 1
-        else : 
-            text+= f"╚───────────────────────────────────────────────────╝\n"
-    return text
-
-def menu(email, role):
-    Clear_terminal()
-    pembuka = ''
-    data = pd.read_csv('./users.csv')
-    data2 = data[data['Email'] == email].iloc[0].to_dict()
-    if data2['Role'] == 'kepda':
-        teks = f"Selamat datang, Kepala Daerah {daerah}!"
-        if len(teks) > 49:
-            teks = f'''Selamat datang, Kepala Daerah\n{daerah}!'''
-        pembuka = f"""\n╔═══════════════════════════════════════════════════╗\n║{teks:^51}║\n╚═══════════════════════════════════════════════════╝\n"""
-    elif data2['Role'] == 'user':
-        pembuka = f'Selamat datang {data2['Name'].upper()} selamat berbelanja :>\n\n'
-    pembuka += f"""╔───────────────────────────────────────────────────╗
-║                   DATA INFORMASI                  ║
-╠───────────────────────────────────────────────────╣
-║ ⊳ Name   : {data2['Name'].upper() + ' '*(51-len(data2['Name']) - 12) + '║'}
-║ ⊳ Role   : {data2['Role'] + ' '*(51-len(data2['Role']) - 12) + '║'}
-║ ⊳ Lokasi : {data2['Daerah'] + ' '*(51-len(data2['Daerah']) - 12) + '║'}
-║ ⊳ Pesan  : 0                                      ║
-╠───────────────────────────────────────────────────╣\n"""
-    if role == 'admin':
-        pembuka += f"""║┌─────────────────────────────────────────────────┐║
-║│                    LIST MENU                    │║
-║├─────────────────────────────────────────────────┤║
-║├▶ 1. E-Commerce                                  │║
-║├▶ 2. Inventaris Admin                            │║
-║├▶ 3. Log Out                                     │║
-║└─────────────────────────────────────────────────┘║
-╚───────────────────────────────────────────────────╝
-"""
-    elif role == 'user':
-        pembuka += f"""║┌─────────────────────────────────────────────────┐║
-║│                    LIST MENU                    │║
-║├─────────────────────────────────────────────────┤║
-║├▶ 1. Belanja                                     │║
-║├▶ 2. Keranjang                                   │║
-║├▶ 3. Log out                                     │║
-║└─────────────────────────────────────────────────┘║
-╚───────────────────────────────────────────────────╝
-"""
-    else :
-        pembuka += f"""║┌─────────────────────────────────────────────────┐║
-║│                    LIST MENU                    │║
-║├─────────────────────────────────────────────────┤║
-║├▶ 1. Laporan Pengajuan Subsidi                   │║
-║├▶ 2. Inventaris Daerah                           │║
-║├▶ 3. Log Out                                     │║
-║└─────────────────────────────────────────────────┘║
-╚───────────────────────────────────────────────────╝
-"""
-    print(pembuka)
-
-# ===============
-while True:
-    Clear_terminal()
-    print("""
-╭──────────────────────╮
-│    SILAHKAN PILIH    │
-├──────────────────────┤
-│                      │
-│ ✧ 1. Registrasi      │
-│ ✧ 2. Login           │
-│ ✧ 3. Keluar          │
-│                      │
-╰──────────────────────╯
-      """.strip())
-    try:
-        inputan = int(input('Masukkan nomor [1-3]: '))
-        if inputan == 1:
-                print(registrasi())
-        elif inputan == 2:
-                username, daerah, role = login()
-                if username and daerah and role:
-                    while True:
-                        menu(username,role)
-                        if role == 'admin':
-                            pilihan = input('Pilih menu: ')
-                            match pilihan: 
-                                case '1':
-                                    Clear_terminal()
-                                    print('E-Commerce')
-                                    input('Tekan enter untuk melanjutkan!')
-                                case '2':
-                                    print('enak')
-                                case '3':
-                                    Clear_terminal()
-                                    print('Log Out')     
-                                    input('Tekan enter untuk melanjutkan!')
-                                    break
-                                case ValueError:
-                                    Clear_terminal()
-                                    input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, 3, atau 4'))
-                        elif role == 'user':
-                            pilihan = input('Pilih menu: ')
-                            match pilihan:
-                                case '1':
-                                    Clear_terminal()
-                                    print('belanja') 
-                                    input('Tekan enter untuk melanjutkan!')
-                                case '2':
-                                    Clear_terminal()
-                                    print('keranjang') 
-                                    input('Tekan enter untuk melanjutkan!')
-                                case '3':
-                                    Clear_terminal()
-                                    print('log out') 
-                                    input('Tekan enter untuk melanjutkan!')
-                                    break
-                                case ValueError:
-                                    Clear_terminal()
-                                    input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3'))
-                        else:
-                            pilihan = input("Pilih menu (1-3): ").strip()
-                            match pilihan:
-                                case '1':
-                                    Clear_terminal()
-                                    laporan.buat_laporan(daerah)
-                                case '2':
-                                    Clear_terminal()
-                                    main_invkepd.menu_inventaris(daerah)
-                                case '3':
-                                    Clear_terminal()
-                                    lebar = 54
-                                    teks = "Anda telah logout. Sampai jumpa!"
-                                    print("\n╔════════════════════════════════════════════════════════╗")
-                                    print(f"║{teks:^56}║")
-                                    print("╚════════════════════════════════════════════════════════╝")
-                                    break
-                                case ValueError:
-                                    Clear_terminal()
-                                    input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3'))
+                        jumlah_list[index] = input(f"Masukkan jumlah untuk barang '{barang_list[index]}': ").strip()
+                        if jumlah_list[index] == "" or 0:
+                            print("Jumlah barang tidak boleh kosong. Pastikan jumlah harus di atas '0'.")
+                            continue
+                    except (ValueError, IndexError):
+                        print("Input tidak valid, gunakan format A.1, B.2, dst. Sesuai dengan kode yang ada pada tabel.")
                 else:
-                    Clear_terminal()
-        elif inputan == 3:
-                
-                break
-        else :
-            input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3'))
-    except (ValueError)  :
-        Clear_terminal()
-        input(error('Pilihan yang Anda masukkan tidak valid. Harap masukkan angka yang benar.'))
+                    print("Kode barang tidak valid.")
+
+                Ringkasan(barang_list, jumlah_list)
+
+                selesai = input("Ubah barang lain? (y/n): ").strip().lower()
+                if selesai != "y":
+                    break
+        elif opsi == "hapus":
+            while True:
+                Ringkasan(barang_list, jumlah_list)
+                index = int(input("Masukkan nomor barang yang ingin dihapus: ")) - 1
+                if 0 <= index < len(barang_list):
+                    barang_terhapus = barang_list.pop(index)
+                    jumlah_terhapus = jumlah_list.pop(index)
+                    print(f"\nBarang '{barang_terhapus}' dengan jumlah {jumlah_terhapus} berhasil dihapus.")
+
+                else:
+                    print("Nomor barang tidak valid. Pastikan nomor sesuai dengan daftar.")
+
+                if barang_list:
+                    Ringkasan(barang_list, jumlah_list)
+                    selesai = input("Hapus barang lain? (y/n): ").strip().lower()
+                    if selesai != "y":
+                        break
+                else:
+                    print("\nDaftar barang kosong. Tidak ada barang yang dapat dihapus.")
+                    break
+
+def buat_laporan(daerah):
+    try:
+        buat_l = pd.read_csv('laporan.csv')
+        data = buat_l[buat_l['Daerah'] == daerah].iloc[-1]
+        data2 = data['status']
+        if data2 == 'terkirim':
+            return input ('Harap menunggu respon dari Pemerintah Pusat!')
+    except IndexError:
+        print("Lanjut")
+
+    subsidi = pd.read_csv("subsidi.csv")
+    subsidi = subsidi.dropna(axis=1, how='all')
+    subsidi = subsidi.dropna(axis=0, how='all')
+    subsidi = subsidi.fillna("")
+
+    barang_list = []
+    jumlah_list = []
+    while True:
+        tampilan_barang(subsidi)
+        kode_barang = input("\n\n\nMasukkan kode barang untuk memasukkan barang ke laporan (contoh: A.1) dan tekan 'Enter' untuk selesai\nAtau ketik 'kembali' untuk kembali ke menu: ").strip().upper()
+        if kode_barang == "":
+            if not barang_list:
+                print("\nAnda harus memasukkan setidaknya satu barang sebelum selesai.")
+                continue 
+            break
+        elif kode_barang == 'KEMBALI':
+            return
+
+        try:
+            kategori, indeks = kode_barang.split(".")
+            indeks = int(indeks) - 1
+
+            if kategori == "A" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Benih"][indeks]
+            elif kategori == "B" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Pupuk"][indeks]
+            elif kategori == "C" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Pestisida"][indeks]
+            elif kategori == "D" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Herbisida"][indeks]
+            elif kategori == "E" and 0 <= indeks < len(subsidi):
+                barang = subsidi["Barang"][indeks]
+            else:
+                print("Kode barang tidak valid. Pastikan kode sesuai dengan daftar.")
+                continue
+            
+            jumlah = input(f"Masukkan jumlah untuk barang '{barang}': ").strip()
+            if jumlah == "" or 0:
+                print("Jumlah barang tidak boleh kosong. Pastikan jumlah harus di atas '0'.")
+                continue
+            barang_list.append(barang)
+            jumlah_list.append(jumlah)
+        except (ValueError, IndexError):
+            print("Input tidak valid, gunakan format A.1, B.2, dst. Sesuai dengan kode yang ada pada tabel")
+
+    print("\n" * 9)
+    Ringkasan(barang_list, jumlah_list)
+
+    e_Ringkasan(barang_list, jumlah_list, subsidi)
+
+    while True:
+        alasan = input("\nMasukkan alasan laporan: ").strip()
+        if alasan == "0":
+            print("\nKembali ke Menu Utama...")
+            return
+        if alasan == "":
+            print("\nAlasan tidak boleh kosong! Silakan coba lagi.\nAtau ketik '0' untuk membatalkan laporan.")
+        else:
+            break
+
+    sekarang = datetime.now()
+    tanggal = sekarang.strftime("%A, %Y-%m-%d, %H:%M:%S")
+
+    data_laporan = {
+        "ID": None,
+        "Tanggal": tanggal,
+        "Daerah": daerah,
+        "Jenis Barang": ";".join(barang_list),
+        "Jumlah Barang": ";".join(jumlah_list),
+        "Alasan": alasan,
+        "status": "terkirim",
+        "respon": "Belum ada respon",
+    }
+
+    try:
+        laporan = pd.read_csv("laporan.csv")
+    except FileNotFoundError:
+        laporan = pd.DataFrame(columns=["ID", "Tanggal", "Daerah", "Jenis Barang", "Jumlah Barang", "Alasan", "status", "respon"])
+
+    if not laporan.empty:
+        data_laporan["ID"] = laporan["ID"].max() + 1
+    else:
+        data_laporan["ID"] = 1
+
+    laporan = pd.concat([laporan, pd.DataFrame([data_laporan])], ignore_index=True)
+    laporan.to_csv("laporan.csv", index=False)
+
+    keys = ["Tanggal", "Daerah", "Jenis Barang", "Jumlah Barang", "Alasan", "status"]
+    values = [data_laporan[key] for key in keys]
+
+    print("\n" * 2)
+    detail = f"\n╔════════════════════════════════════════════════════════╗\n"
+    detail += f"║ {'DETAIL LAPORAN':^54} ║\n"
+    detail += "╠════════════════════════════════════════════════════════╣\n"
+
+    lebar_key = 15
+    lebar_val = 36
+
+    for key, value in zip(keys, values):
+        value = str(value) 
+        value_lines = [value[i:i+lebar_val] for i in range(0, len(value), lebar_val)]
+
+        detail +=f"║ {key:<{lebar_key}} : {value_lines[0]:<{lebar_val}} ║\n"
+
+        for line in value_lines[1:]:
+            detail += f"║ {'':<{lebar_key}}   {line:<{lebar_val}} ║\n"
+    detail += "╚════════════════════════════════════════════════════════╝\n"
+    detail += "Tekan 'enter' untuk kembali ke Menu Utama"
+    
+    input(detail)
