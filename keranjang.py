@@ -69,6 +69,9 @@ def gaya_progress(pesan):
 def keranjang():
     global total_barang
     total_barang = pd.read_csv('keranjang.csv')
+    if len(total_barang) == 0:
+        print('KERANJANGMU KOSONG, SILAHKAN MASUKKAN PRODUCT PADAD FITUR BELANJA')
+        return
     while True:
         try:
             gaya_keranjang()
@@ -95,7 +98,7 @@ def keranjang():
                     jumlah_produk = row['Jumlah Produk']
                     database = pd.read_csv('DataBarang_NS.csv')
                     if nama_produk in database['Isi'].values:
-                        database.loc[database['Isi'] == nama_produk, 'Jumlah'] += jumlah_produk
+                        database.loc[database['Isi'] == nama_produk, 'Jumlah'] -= jumlah_produk
                     else:
                         print(error(f'Produk {nama_produk} tidak ditemukan di database.'))
                 database.to_csv('DataBarang_NS.csv', index=False)
