@@ -8,9 +8,9 @@ def menu_inventaris(daerah):
             print(f"║{teks:^55}║")
             print("╠═══════════════════════════════════════════════════════╣")
             men = {
-                  '1': 'Data Inventaris Daerah',
-                  '2': 'Histori Laporan',
-                  '3': 'Keluar'
+                '1': 'Data Inventaris Daerah',
+                '2': 'Histori Laporan',
+                '3': 'Keluar'
             }
             keys = list(men.keys())
             values = list(men.values())

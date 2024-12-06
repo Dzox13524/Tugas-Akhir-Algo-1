@@ -73,45 +73,42 @@ def keranjang():
         print('KERANJANGMU KOSONG, SILAHKAN MASUKKAN PRODUCT PADAD FITUR BELANJA')
         return
     while True:
-        try:
-            gaya_keranjang()
-            edit = input('Kurangi isi keranjang?\n(y/n): ')
-            edit = edit.replace(" ","")
-            if edit.lower() == 'y':
-                Clear_terminal()
-                gaya_keranjang()
-                pilih = input("Pilih barang yang ingin di kurangi: ")
-                if pilih not in total_barang['Nama Produk'].values:
-                    print(error('Barang tidak ditemukan\nSilahkan belanja terlebih dahulu'))
-                    continue
-                else:
-                    barang_edit = int(input("Masukkan jumlah barang yang ingin di kurangi: "))
-                    total_barang.loc[total_barang['Nama Produk'] == pilih, 'Jumlah Produk'] -= barang_edit
-                    total_barang.to_csv('keranjang.csv',index=False)
-                    continue
-            elif edit.lower() == 'n':
-                Clear_terminal()
-                gaya_keranjang()
-                gaya_progress('Proses Checkout: ')
-                for index, row in total_barang.iterrows():
-                    nama_produk = row['Nama Produk']
-                    jumlah_produk = row['Jumlah Produk']
-                    database = pd.read_csv('DataBarang_NS.csv')
-                    if nama_produk in database['Isi'].values:
-                        database.loc[database['Isi'] == nama_produk, 'Jumlah'] -= jumlah_produk
-                    else:
-                        print(error(f'Produk {nama_produk} tidak ditemukan di database.'))
-                database.to_csv('DataBarang_NS.csv', index=False)
-                print(success_message('Produk Berhasil Ditambahkan!!!'))
-                total_barang = pd.DataFrame(columns=['No', 'Nama Produk', 'Jumlah Produk'])
-                total_barang.to_csv('keranjang.csv', index=False)
-                break
-            else:
-                print(error('Pilihan tidak tersedia'))
-                continue
-        except ValueError:
+        gaya_keranjang()
+        edit = input('Kurangi isi keranjang?\n(y/n): ')
+        edit = edit.replace(" ","")
+        if edit.lower() == 'y':
             Clear_terminal()
-            print(error('Input tidak valid'))
+            gaya_keranjang()
+            pilih = input("Pilih barang yang ingin di kurangi: ")
+            if pilih not in total_barang['Nama Produk'].values:
+                print(error('Barang tidak ditemukan\nSilahkan belanja terlebih dahulu'))
+                continue
+            else:
+                barang_edit = int(input("Masukkan jumlah barang yang ingin di kurangi: "))
+                total_barang.loc[total_barang['Nama Produk'] == pilih, 'Jumlah Produk'] -= barang_edit
+                total_barang.to_csv('keranjang.csv',index=False)
+                continue
+        elif edit.lower() == 'n':
+            Clear_terminal()
+            gaya_keranjang()
+            gaya_progress('Proses Checkout: ')
+            for index, row in total_barang.iterrows():
+                nama_produk = row['Nama Produk']
+                jumlah_produk = row['Jumlah Produk']
+                database = pd.read_csv('DataBarang_NS.csv')
+                if nama_produk in database['Isi'].values:
+                    database.loc[database['Isi'] == nama_produk, 'Jumlah'] -= jumlah_produk
+                    database.to_csv('DataBarang_NS.csv', index=False)
+                else:
+                    print(error(f'Produk {nama_produk} tidak ditemukan di database.'))
+                    continue
+            database.to_csv('DataBarang_NS.csv', index=False)
+            print(success_message('Produk Berhasil Ditambahkan!!!'))
+            total_barang = pd.DataFrame(columns=['No', 'Nama Produk', 'Jumlah Produk'])
+            total_barang.to_csv('keranjang.csv', index=False)
+            break
+        else:
+            print(error('Pilihan tidak tersedia'))
             continue
     return
 

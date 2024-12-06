@@ -123,60 +123,54 @@ def daftar_produk():
                 input()
                 continue
         while True:
-            try:
-                clear_terminal()
-                fe.Data_baru()
-                gaya_keranjang()
-                global total_barang
-                total_barang = pd.read_csv('keranjang.csv')
-                jumlah_barang = int(input(f"{produk} saat ini: {jumlah_sekarang}\nMasukkan jumlah produk yang ingin dibeli: "))
+            clear_terminal()
+            fe.Data_baru()
+            gaya_keranjang()
+            global total_barang
+            total_barang = pd.read_csv('keranjang.csv')
+            jumlah_barang = int(input(f"{produk} saat ini: {jumlah_sekarang}\nMasukkan jumlah produk yang ingin dibeli: "))
                 
-                if produk in total_barang['Nama Produk'].values:
-                    barang_keranjang = total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'].values[0]
-                    if jumlah_barang + barang_keranjang > jumlah_sekarang:
-                        print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
-                        input()
-                        daftar_produk()
-                    else:
-                        if jumlah_barang >= jumlah_sekarang:
-                            print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
-                            input()
-                            daftar_produk()
-                        else:
-                            total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'] += jumlah_barang
+            if produk in total_barang['Nama Produk'].values:
+                barang_keranjang = total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'].values[0]
+                if jumlah_barang + barang_keranjang > jumlah_sekarang:
+                    print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
+                    input()
+                    daftar_produk()
                 else:
                     if jumlah_barang >= jumlah_sekarang:
                         print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
                         input()
-                        daftar_produk()
-                    if produk in total_barang['Nama Produk'].values:
-                        total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'] += jumlah_barang
-                        total_barang.to_csv('keranjang.csv',index=False)
+                        continue
                     else:
-                        keranjang = {
-                            'No' : len(total_barang) +1,
-                            'Nama Produk' : produk,
-                            'Jumlah Produk' : jumlah_barang,
-                        }
-                        checkout = pd.DataFrame(keranjang, index=[0])
-                        total_barang = pd.concat([total_barang, checkout], ignore_index=True)
+                        total_barang.loc[total_barang['Nama Produk'] == produk, 'Jumlah Produk'] += jumlah_barang
                         total_barang.to_csv('keranjang.csv', index=False)
-                        clear_terminal()
-            except ValueError:
-                print(error("INPUT HARUS BERUPA BILANGAN BULAT DAN HANYA ANGKA"))
-                enter1 = input('')
-                continue
-            break
+                        break
+            else:
+                if jumlah_barang >= jumlah_sekarang:
+                    print(error("Jumlah yang diinput melebihi jumlah yang tersedia"))
+                    input()
+                    continue
+                else:
+                    keranjang = {
+                        'No' : len(total_barang) +1,
+                        'Nama Produk' : produk,
+                        'Jumlah Produk' : jumlah_barang,
+                    }
+                    checkout = pd.DataFrame(keranjang, index=[0])
+                    total_barang = pd.concat([total_barang, checkout], ignore_index=True)
+                    total_barang.to_csv('keranjang.csv', index=False)
+                    clear_terminal()
+                    break
         fe.gaya_progress(f'Memasukkan {produk} ke keranjang')
         total_barang.to_csv('keranjang.csv', index=False)
         print(success_message('Produk Berhasil Ditambahkan!!!'))
         while True:
             konfirmasi_belanja = input('Lanjutkan Berbelanja?\n[y/n]: ')
             if konfirmasi_belanja.lower() == 'y':
-                daftar_produk()
+                return
             elif konfirmasi_belanja.lower() == 'n':
                 return 'n'
-            else:
+            elif konfirmasi_belanja != 'y' and konfirmasi_belanja != 'n':
                 print(error("Pilihan Tidak Valid"))
                 input('')
                 continue
@@ -186,6 +180,6 @@ def daftar_produk():
 def mainn():
     while True:
         clear_terminal()
-        if daftar_produk() == "n":
+        if daftar_produk() == 'n':
             break
     return

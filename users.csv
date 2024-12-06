@@ -20,7 +20,7 @@ ID,Name,Email,Password,Role,Daerah
 18,Galih Wicaksono,jabar@gmail.com,8b1a7f4,kepda,Jawa Barat
 19,Maya Santoso,jateng@gmail.com,5c2f9a6,kepda,Jawa Tengah
 20,Yuniar Pramudya,DIY@gmail.com,4d6a8b2,kepda,Daerah Istimewa Yogyakarta
-21,Agus Setiawan,jatim@gmail.com,7e9d1f2,kepda,Jawa Timur
+21,Agus Setiawan,jatim@gmail.com,12345,kepda,Jawa Timur
 22,Adi Nugroho,bali@gmail.com,6a2b4d7,kepda,Bali
 23,Desi Nurul,ntt@gmail.com,8f3c1d4,kepda,Nusa Tenggara Timur
 24,Fahmi Arif,ntb@gmail.com,9b4a6c2,kepda,Nusa Tenggara Barat
@@ -43,3 +43,4 @@ ID,Name,Email,Password,Role,Daerah
 42,Alphiens,alkasa07@gmail.com,Al3039,user,Jawa Timur
 43,Ahmad,aaa@gmail.com,11,user,Nanggroe Aceh Darussalam
 44,Farellez,farewell@gmail.com,farewell444,user,Jawa Timur
+45,Ahmad ff,ahmad@gmail.com,ahmad555,user,Jawa Timur
