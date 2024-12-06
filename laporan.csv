@@ -1,1 +1,17 @@
 ID,Tanggal,Daerah,Jenis Barang,Jumlah Barang,Alasan,status,respon
+1,"Sunday, 2024-12-01, 08:08:14",Jawa Timur,Benih Padi;Benih Jagung;Benih Kedelai,12;12;12,Lapar Pimpinan,acc,lu keren banget
+2,"Sunday, 2024-12-01, 08:08:57",Jawa Timur,Urea;SP-36;Benih Kedelai,12;12;12,Butuh,acc,
+3,"Sunday, 2024-12-01, 08:13:11",Jawa Timur,Benih Padi;Urea;BPMC (Bupati 50 EC);Gramoxone (paraquat),12;12;12;12,YAA,acc,
+4,"Sunday, 2024-12-01, 08:39:54",Jawa Timur,Benih Padi,12,Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum,acc,
+5,"Sunday, 2024-12-01, 08:59:29",Jawa Timur,Benih Padi;Benih Kedelai;NPK,10;12;12,Enak banget,terkirim,
+6,"Sunday, 2024-12-01, 10:21:43",Jember,Benih Jagung;NPK;Sprayer modern,100;12;123,Karena Daerah Jember butuh pak Hendy,terkirim,
+7,"Sunday, 2024-12-01, 19:23:22",Jawa Timur,Benih Kedelai;Urea;Omite 570 EC,12;1000;15,Karena Pak Hendy Kalah,acc,
+8,"Tuesday, 2024-12-03, 09:23:54",Jawa Timur,Dithane M-45;Benih Kedelai,15;15,Enak pak Hendy,terkirim,
+9,"Tuesday, 2024-12-03, 12:19:44",Jawa Timur,Gramoxone (paraquat);Benih Padi,13;13,Enakeun,terkirim,
+10,"Tuesday, 2024-12-03, 12:21:12",Jawa Timur,Benih Padi;Benih Kedelai;Benih Kedelai;Urea;SP-36;NPK;BPMC (Bupati 50 EC);Dithane M-45;Omite 570 EC,1;15;12;12;14;15;12;23;13,Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum,terkirim,
+11,"Tuesday, 2024-12-03, 19:35:57",Nangroe Aceh Daroessalam,Benih Padi,12,NNN,terkirim,
+12,"Tuesday, 2024-12-03, 22:54:04",Jawa Timur,Benih Padi,12,alasan,acc,
+13,"Tuesday, 2024-12-03, 23:50:49",Jawa Timur,Benih Kedelai;Benih Jagung;Benih Kedelai,13;13;12,kane,acc,Belum ada respon
+14,"Tuesday, 2024-12-03, 23:52:19",Jawa Timur,Benih Padi,12,enak,acc,Belum ada respon
+15,"Wednesday, 2024-12-04, 00:31:28",Jawa Timur,Benih Padi,12,alasan,acc,Belum ada respon
+16,"Wednesday, 2024-12-04, 03:00:52",Jawa Timur,Benih Jagung,12,qq,reject,jeleg

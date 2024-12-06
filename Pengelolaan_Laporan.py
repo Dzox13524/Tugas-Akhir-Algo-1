@@ -2,14 +2,15 @@ import pandas as pd
 from Error_Handling import error, Clear_terminal
 
 listLaporan = {}
-def List_Inventaris():
+def List_laporan():
     data = pd.read_csv('./laporan.csv')
     index = 0
-    header = """╭════════════════════════════════════════════════════════════════════════════════════════════════════════╮
-║                                              LIST LAPORAN                                              ║
-╠═══════╦════════════════════════════╦════════════════════════════════════════╦══════════════╦═══════════╣
-║   NO  ║           DAERAH           ║              LAST MESSAGE              ║ JUMLAH PESAN ║  PENDING  ║
-╠═══════╬════════════════════════════╬════════════════════════════════════════╬══════════════╬═══════════╣\n"""
+    header = """
+╭═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╮
+║                                                    LIST LAPORAN                                                     ║
+╠═══════╦════════════════════════════╦════════════════════════════════════════╦══════════════╦════════════════════════╣
+║   NO  ║           DAERAH           ║                TANGGAL                 ║ JUMLAH PESAN ║  PESAN BELUM DIRESPON  ║
+╠═══════╬════════════════════════════╬════════════════════════════════════════╬══════════════╬════════════════════════╣\n"""
 
     for i in range(len(data['Daerah'])) :      
         if str(data['Daerah'][i]) not in listLaporan:
@@ -34,9 +35,9 @@ def List_Inventaris():
 
     for i in listLaporan:
         index += 1
-        header += f"║{str(index).center(7)}║{listLaporan[i]['daerah'].center(28)}║{listLaporan[i]['date'].center(40)}║{str(listLaporan[i]['total_pesan']).center(14)}║{str(listLaporan[i]['pending']).center(11)}║\n"
+        header += f"║{str(index).center(7)}║{listLaporan[i]['daerah'].center(28)}║{listLaporan[i]['date'].center(40)}║{str(listLaporan[i]['total_pesan']).center(14)}║{str(listLaporan[i]['pending']).center(24)}║\n"
         if index == len(listLaporan):
-            header += '╰═══════╩════════════════════════════╩════════════════════════════════════════╩══════════════╩═══════════╯'
+            header += '╰═══════╩════════════════════════════╩════════════════════════════════════════╩══════════════╩════════════════════════╯'
     return header
 
 def remove_keys(data): 
@@ -50,7 +51,7 @@ def inventaris_Daerah(nomer):
     list_laporan = remove_keys(listLaporan)
     text = f"""
 ╭═══════════════════════════════════════════════════════════════════════════════════════════════════════╮
-║{('INVENTARIS ' + (list_laporan[nomer]['daerah']).upper()).center(103)}║
+║{('LIST LAPORAN ' + (list_laporan[nomer]['daerah']).upper()).center(103)}║
 ╠═══════╦════════════════════════════════════════╦════════════════════╦════════════════════╦════════════╣
 ║   NO  ║                 TANGGAL                ║ BAHAN ATAU BARANG  ║   JUMLAH BARANG    ║   STATUS   ║
 ╠═══════╬════════════════════════════════════════╬════════════════════╬════════════════════╬════════════╣\n"""
@@ -65,9 +66,8 @@ def inventaris_Daerah(nomer):
             text += f"║       ║                                        ║{(barang[i]).center(20)}║{jumlah[i].center(20)}║            ║\n"
         if len(list_laporan[nomer]['data']) != no+1:
             text +=  "╠═══════╬════════════════════════════════════════╬════════════════════╬════════════════════╬════════════╣\n"
-        else:
-            text +=  '╰═══════╩════════════════════════════════════════╩════════════════════╩════════════════════╩════════════╯'
         no += 1
+    text +=  '╰═══════╩════════════════════════════════════════╩════════════════════╩════════════════════╩════════════╯'
     return text
 
 def data_daerah(daerah):
@@ -91,15 +91,15 @@ def data_daerah(daerah):
         teks += f"{key.center(25)} {str(value).center(10)}\n"
     return teks
 
-def inventaris():
+def Pengelolaan_Laporan():
     while True:
         try:
             global listLaporan
             Clear_terminal()
+            print(List_laporan())
             if len(listLaporan) <= 0:
                 print('Tidak Ada Laporan Untuk Saat Ini')
                 return input("Klik Enter Untuk Melanjutkan")
-            print(List_Inventaris())
             inputan = int(input(f'Pilih 1-{len(listLaporan)} atau {len(listLaporan)+1} untuk kembali : '))-1
             if inputan <= len(listLaporan)-1 and inputan >= 0:
                 while True:

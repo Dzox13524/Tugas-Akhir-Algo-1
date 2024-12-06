@@ -41,71 +41,17 @@ def Ringkasan(barang_list, jumlah_list):
         print(f"║ {i:<3} {barang:<{lebar_barang}} {jumlah:<{lebar_jumlah}} ║")
     print("╚════════════════════════════════════════════════════════╝")
 
-def buat_laporan(user):
-    buat_l = pd.read_csv('laporan.csv')
-    if buat_l[buat_l['Daerah'] == user] :
-        data = buat_l[buat_l['Daerah'] == user].iloc[-1]
-        data2 = data['status']
-        if data2 == 'terkirim':
-            return input ('Harap menunggu respon dari Pemerintah Pusat!')
-
-    subsidi = pd.read_csv("subsidi.csv")
-    subsidi = subsidi.dropna(axis=1, how='all')
-    subsidi = subsidi.dropna(axis=0, how='all')
-    subsidi = subsidi.fillna("")
-    
-
-    barang_list = []
-    jumlah_list = []
-    while True:
-        tampilan_barang(subsidi)
-        kode_barang = input("\nMasukkan kode barang untuk memasukkan barang ke laporan (contoh: A.1) dan tekan 'Enter' untuk selesai atau ketik 'kembali' untuk kembali ke menu: ").strip().upper()
-        if kode_barang == "":
-            if not barang_list:
-                print("\nAnda harus memasukkan setidaknya satu barang sebelum selesai.")
-                continue 
-            break
-
-        try:
-            kategori, indeks = kode_barang.split(".")
-            indeks = int(indeks) - 1
-
-            if kategori == "A" and 0 <= indeks < len(subsidi) - 1:
-                barang = subsidi["Benih"][indeks]
-            elif kategori == "B" and 0 <= indeks < len(subsidi) - 1:
-                barang = subsidi["Pupuk"][indeks]
-            elif kategori == "C" and 0 <= indeks < len(subsidi) - 1:
-                barang = subsidi["Pestisida"][indeks]
-            elif kategori == "D" and 0 <= indeks < len(subsidi) - 1:
-                barang = subsidi["Herbisida"][indeks]
-            elif kategori == "E" and 0 <= indeks < len(subsidi):
-                barang = subsidi["Barang"][indeks]
-            else:
-                print("Kode barang tidak valid. Pastikan kode sesuai dengan daftar.")
-                continue
-            
-            jumlah = input(f"Masukkan jumlah untuk barang '{barang}': ").strip()
-            if jumlah == "" or 0:
-                print("Jumlah barang tidak boleh kosong. Pastikan jumlah harus di atas '0'.")
-                continue
-            barang_list.append(barang)
-            jumlah_list.append(jumlah)
-        except (ValueError, IndexError):
-            print("Input tidak valid, gunakan format A.1, B.2, dst. Sesuai dengan kode yang ada pada tabel")
-
-    print("\n" * 9)
-    Ringkasan(barang_list, jumlah_list)
-
+def e_Ringkasan(barang_list, jumlah_list, subsidi):
     edit = input("\nApakah ada daftar barang yang tidak sesuai? (y/n): ").strip().lower()
     if edit == "y":
-        opsi = input("\nApakah anda ingin mengubah kode barang atau menghapus barang? (ubah/hapus)").strip().lower
+        opsi = input("\nApakah anda ingin mengubah kode barang atau menghapus barang? (ketik 'ubah'/'hapus')\nKetik pilihan: ").strip().lower()
         if opsi == "ubah":
             while True:
+                Ringkasan(barang_list, jumlah_list)
                 index = int(input("Masukkan nomor barang yang ingin diubah: ")) - 1
                 if 0 <= index < len(barang_list):
                     tampilan_barang(subsidi)
                     Ringkasan(barang_list, jumlah_list)
-
                     kode_barang = input("Masukkan kode barang baru (contoh: A.1): ").strip().upper()
                     try:
                         kategori, indeks = kode_barang.split(".")
@@ -160,7 +106,75 @@ def buat_laporan(user):
                     print("\nDaftar barang kosong. Tidak ada barang yang dapat dihapus.")
                     break
 
-    alasan = input("\nMasukkan alasan laporan: ").strip()
+def buat_laporan(daerah):
+    try:
+        buat_l = pd.read_csv('laporan.csv')
+        data = buat_l[buat_l['Daerah'] == daerah].iloc[-1]
+        data2 = data['status']
+        if data2 == 'terkirim':
+            return input ('Harap menunggu respon dari Pemerintah Pusat!')
+    except IndexError:
+        print("Lanjut")
+
+    subsidi = pd.read_csv("subsidi.csv")
+    subsidi = subsidi.dropna(axis=1, how='all')
+    subsidi = subsidi.dropna(axis=0, how='all')
+    subsidi = subsidi.fillna("")
+
+    barang_list = []
+    jumlah_list = []
+    while True:
+        tampilan_barang(subsidi)
+        kode_barang = input("\n\n\nMasukkan kode barang untuk memasukkan barang ke laporan (contoh: A.1) dan tekan 'Enter' untuk selesai\nAtau ketik 'kembali' untuk kembali ke menu: ").strip().upper()
+        if kode_barang == "":
+            if not barang_list:
+                print("\nAnda harus memasukkan setidaknya satu barang sebelum selesai.")
+                continue 
+            break
+        elif kode_barang == 'KEMBALI':
+            return
+
+        try:
+            kategori, indeks = kode_barang.split(".")
+            indeks = int(indeks) - 1
+
+            if kategori == "A" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Benih"][indeks]
+            elif kategori == "B" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Pupuk"][indeks]
+            elif kategori == "C" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Pestisida"][indeks]
+            elif kategori == "D" and 0 <= indeks < len(subsidi) - 1:
+                barang = subsidi["Herbisida"][indeks]
+            elif kategori == "E" and 0 <= indeks < len(subsidi):
+                barang = subsidi["Barang"][indeks]
+            else:
+                print("Kode barang tidak valid. Pastikan kode sesuai dengan daftar.")
+                continue
+            
+            jumlah = input(f"Masukkan jumlah untuk barang '{barang}': ").strip()
+            if jumlah == "" or 0:
+                print("Jumlah barang tidak boleh kosong. Pastikan jumlah harus di atas '0'.")
+                continue
+            barang_list.append(barang)
+            jumlah_list.append(jumlah)
+        except (ValueError, IndexError):
+            print("Input tidak valid, gunakan format A.1, B.2, dst. Sesuai dengan kode yang ada pada tabel")
+
+    print("\n" * 9)
+    Ringkasan(barang_list, jumlah_list)
+
+    e_Ringkasan(barang_list, jumlah_list, subsidi)
+
+    while True:
+        alasan = input("\nMasukkan alasan laporan: ").strip()
+        if alasan == "0":
+            print("\nKembali ke Menu Utama...")
+            return
+        if alasan == "":
+            print("\nAlasan tidak boleh kosong! Silakan coba lagi.\nAtau ketik '0' untuk membatalkan laporan.")
+        else:
+            break
 
     sekarang = datetime.now()
     tanggal = sekarang.strftime("%A, %Y-%m-%d, %H:%M:%S")
@@ -168,7 +182,7 @@ def buat_laporan(user):
     data_laporan = {
         "ID": None,
         "Tanggal": tanggal,
-        "Daerah": user,
+        "Daerah": daerah,
         "Jenis Barang": ";".join(barang_list),
         "Jumlah Barang": ";".join(jumlah_list),
         "Alasan": alasan,

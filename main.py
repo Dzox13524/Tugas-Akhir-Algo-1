@@ -1,52 +1,14 @@
 import pandas as pd
-import os
-import subprocess
 import Fitur_E_commerce_Admin
 import laporan
 import main_invkepd
-from inventaris import inventaris
+from Pengelolaan_Laporan import Pengelolaan_Laporan
+from Error_Handling import error, Clear_terminal
+import Fitur_E_commerce as fe
+import Fitur_Belanja as fb
+import keranjang as ker
 
 
-def Clear_terminal():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        subprocess.call('clear')
-
-def error(messages):
-    atas = """╔════════════════════!!! ERROR DETECTED !!!════════════════════╗
-║                                                              ║"""
-    tengah = ''
-    bawah = """║                                                              ║
-╠──────────────────────────────────────────────────────────────╣
-║   Press enter to continue.                                   ║
-╚══════════════════════════════════════════════════════════════╝
-"""
-    data = messages.split()
-    hasil = []
-    result = '║ ⚠ ERROR: '
-    index = 0
-
-    for i in data:
-        if len(result) + len(i) + 1 <= 63:
-            result += i + " "
-            index += 1
-        else:
-            result += ' ' * (63 - len(result)) + '║'
-            hasil.append(result)
-            result = '║ '
-            result += i + " "
-
-    if result.strip() != '║':
-        result += ' ' * (63 - len(result)) + '║'
-        hasil.append(result)
-
-    for i in hasil:
-        tengah += f"\n{i.strip()}"
-    
-    Clear_terminal()
-    return f'{atas}{tengah}\n{bawah}'
-     
 def registrasi():
     Clear_terminal()
     while True:
@@ -168,7 +130,7 @@ def menu(email, role):
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║
 ║├▶ 1. E-Commerce                                  │║
-║├▶ 2. Inventaris Admin                            │║
+║├▶ 2. Pengelolaan Laporan                         │║
 ║├▶ 3. Log Out                                     │║
 ║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
@@ -188,14 +150,26 @@ def menu(email, role):
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║
 ║├▶ 1. Request Barang                              │║
-║├▶ 2. Inventaris                                  │║
+║├▶ 2. Inventaris Daerah                           │║
 ║├▶ 3. Log Out                                     │║
 ║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
 """
     print(pembuka)
 
-# ===============
+Clear_terminal()
+print("#======================================================#")
+print("#                                                      #")
+print("#                 SELAMAT DATANG DI                    #")
+print("#                       TAMIL                          #")
+print("#                  (Tani Milenial)                     #")
+print("#                                                      #")
+print("#======================================================#")
+print("#                                                      #")
+print("#           Tekan [ENTER] untuk Melanjutkan!           #")
+print("#                                                      #")
+print("#======================================================#")
+input("")
 while True:
     Clear_terminal()
     print("""
@@ -208,7 +182,7 @@ while True:
 │ ✧ 3. Keluar          │
 │                      │
 ╰──────────────────────╯
-      """.strip())
+""".strip())
     try:
         inputan = int(input('Masukkan nomor [1-3]: '))
         if inputan == 1:
@@ -226,11 +200,11 @@ while True:
                                     Fitur_E_commerce_Admin.main()
                                 case '2':
                                     Clear_terminal()
-                                    print(inventaris())
+                                    print(Pengelolaan_Laporan())
                                 case '3':
                                     Clear_terminal()
                                     print('Log Out')     
-                                    input('Tekan enter untuk melanjutkan!')
+                                    input(f'╔════════════════════════════════════════════════════════╗\n║{'Anda telah logout. Sampai jumpa!'.center(56)}║\n╚════════════════════════════════════════════════════════╝')
                                     break
                                 case ValueError:
                                     Clear_terminal()
@@ -240,20 +214,20 @@ while True:
                             match pilihan:
                                 case '1':
                                     Clear_terminal()
-                                    print('belanja') 
+                                    fb.mainn()
                                     input('Tekan enter untuk melanjutkan!')
                                 case '2':
                                     Clear_terminal()
-                                    print('keranjang') 
+                                    ker.mulai()
                                     input('Tekan enter untuk melanjutkan!')
                                 case '3':
                                     Clear_terminal()
-                                    print('log out') 
+                                    input(f'╔════════════════════════════════════════════════════════╗\n║{'Anda telah logout. Sampai jumpa!'.center(56)}║\n╚════════════════════════════════════════════════════════╝')
                                     input('Tekan enter untuk melanjutkan!')
                                     break
                                 case ValueError:
                                     Clear_terminal()
-                                    input(error('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3'))
+                                    break
                         else: 
                             pilihan = input('Pilih menu: ')
                             match pilihan:

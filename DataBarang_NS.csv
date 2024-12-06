@@ -1,18 +1,14 @@
-Barang dan Bahan Non Subsidi,Isi,Jumlah,Harga/Produk
-<<<<<<< HEAD
-Benih,Tebu,1000,1
-=======
-Benih,Tebu,1000,20000
->>>>>>> 19699b5bc6d6a0ea2afe87634c2821369c0c7cf1
------//-----,Kentang,1400,20000
------//-----,Cabe,1000,20000
-Pupuk,KCL,400,10000
------//-----,ZA,1000,20000
------//-----,Magnesium,500,20000
-Pestisida,Deltametrin,300,20000
------//-----,Dithane M-45,100,20000
------//-----,Omite 570 EC,100,20000
-Barang,Traktor tangan,10,1000000
------//-----,Pompa air,70,200000
------//-----,Mesin tanam,40,200000
------//-----,Sprayer modern,50,300000
+Unnamed: 0,Barang dan Bahan Non Subsidi,Isi,Jumlah,Harga/Produk
+0,Benih,Tebu,906,20000
+1,Benih,Kentang,1400,20000
+2,Benih,Cabe,2020,20000
+3,Pupuk,KCL,400,10000
+4,Pupuk,ZA,1001,20000
+5,Pupuk,Magnesium,500,20000
+6,Pestisida,Deltametrin,300,20000
+7,Pestisida,Dithane M-45,100,20000
+8,Pestisida,Omite 570 EC,100,20000
+9,Barang,Traktor tangan,10,1000000
+10,Barang,Pompa air,90,200000
+11,Barang,Mesin tanam,39,200000
+12,Barang,Sprayer modern,50,300000
