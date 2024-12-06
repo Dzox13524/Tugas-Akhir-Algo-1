@@ -92,7 +92,7 @@ def keranjang():
             elif edit.lower() == 'n':
                 Clear_terminal()
                 gaya_keranjang()
-                print(gaya_progress('Proses Checkout: '))
+                gaya_progress('Proses Checkout: ')
                 for index, row in total_barang.iterrows():
                     nama_produk = row['Nama Produk']
                     jumlah_produk = row['Jumlah Produk']
