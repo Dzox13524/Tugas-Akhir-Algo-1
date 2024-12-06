@@ -33,10 +33,9 @@ def histori_laporan(daerah):
 
             print(f"║ {key:<{lebar_key}} : {value_lines[0]:<{lebar_val}} ║")
 
-        for line in value_lines[1:]:
-            print(f"║ {'':<{lebar_key}}   {line:<{lebar_val}} ║")
+            for line in value_lines[1:]:
+                print(f"║ {'':<{lebar_key}}   {line:<{lebar_val}} ║")
 
-            break
         print("╚═══════════════════════════════════════════════════════╝")
 
     except FileNotFoundError:
