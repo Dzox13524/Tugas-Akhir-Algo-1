@@ -3,7 +3,7 @@ ID,Tanggal,Daerah,Jenis Barang,Jumlah Barang,Alasan,status,respon
 2,"Sunday, 2024-12-01, 08:08:57",Jawa Timur,Urea;SP-36;Benih Kedelai,12;12;12,Butuh,acc,
 3,"Sunday, 2024-12-01, 08:13:11",Jawa Timur,Benih Padi;Urea;BPMC (Bupati 50 EC);Gramoxone (paraquat),12;12;12;12,YAA,acc,
 4,"Sunday, 2024-12-01, 08:39:54",Jawa Timur,Benih Padi,12,Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum,acc,
-5,"Sunday, 2024-12-01, 08:59:29",Jawa Timur,Benih Padi;Benih Kedelai;NPK,10;12;12,Enak banget,terkirim,
+5,"Sunday, 2024-12-01, 08:59:29",Jawa Timur,Benih Padi;Benih Kedelai;NPK,10;12;12,Enak banget,reject,Kebanyakan bang
 6,"Sunday, 2024-12-01, 10:21:43",Jember,Benih Jagung;NPK;Sprayer modern,100;12;123,Karena Daerah Jember butuh pak Hendy,terkirim,
 7,"Sunday, 2024-12-01, 19:23:22",Jawa Timur,Benih Kedelai;Urea;Omite 570 EC,12;1000;15,Karena Pak Hendy Kalah,acc,
 8,"Tuesday, 2024-12-03, 09:23:54",Jawa Timur,Dithane M-45;Benih Kedelai,15;15,Enak pak Hendy,terkirim,
