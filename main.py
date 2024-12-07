@@ -61,7 +61,7 @@ def registrasi():
 │                                                                  │
 │   ✦ Name         : {nama + ' '*(46-(len(nama))) + '│'}
 │   ✦ Email        : {email + ' '*(46-(len(email))) + '│'}
-│   ✦ Password     : {password + ' '*(46-(len(password))) + '│'}
+│   ✦ Password     : {'*'*(len(password)) + ' '*(46-(len(password))) + '│'}
 │   ✦ Daerah       : {data + ' '*(46-(len(data))) + '│'}
 │                                                                  │
 │   ─────────────────────────────────────────────────────────────  │
